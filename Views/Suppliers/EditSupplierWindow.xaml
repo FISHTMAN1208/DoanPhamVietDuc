@@ -1,0 +1,163 @@
+﻿<Window x:Class="DoanPhamVietDuc.Views.Suppliers.EditSupplierWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:local="clr-namespace:DoanPhamVietDuc.Views.Suppliers"
+    mc:Ignorable="d"
+    Title="Sửa nhà cung cấp" 
+    Height="700" 
+    Width="575"
+    WindowStartupLocation="CenterScreen"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Regular"
+    TextElement.FontSize="13"
+    Background="#F8FAFC">
+    <Window.Resources>
+        <Style x:Key="MaterialDesignOutlinedTextBoxWithBorder" 
+       BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" 
+       TargetType="TextBox">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#6366F1"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MaterialDesignOutlinedComboBoxWithBorder" 
+   BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" 
+   TargetType="ComboBox">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#6366F1"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MaterialDesignOutlinedDatePickerWithBorder" 
+       BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}" 
+       TargetType="DatePicker">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#6366F1"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1E293B" Padding="15" Margin="0,0,0,20" CornerRadius="5">
+            <DockPanel LastChildFill="True">
+                <materialDesign:PackIcon Kind="FolderPlus" 
+                                 Width="24" 
+                                 Height="24" 
+                                 Foreground="White" 
+                                 VerticalAlignment="Center"/>
+                <TextBlock Text="SỬA NHÀ CUNG CẤP" 
+                   FontSize="18" 
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   Margin="10,0,0,0" 
+                   VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,20">
+            <!-- Tên nhà cung cấp -->
+            <TextBlock Text="Tên nhà cung cấp" FontWeight="Medium" Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
+                     Text="{Binding Supplier.SupplierName, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:ValidationAssist.Background="{x:Null}"
+                     materialDesign:ValidationAssist.UsePopup="True"
+                     Margin="0,0,0,15" Height="45"/>
+
+            <!-- Địa chỉ -->
+            <TextBlock Text="Địa chỉ" FontWeight="Medium" Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
+                     Text="{Binding Supplier.SupplierAddress, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,15"
+                     materialDesign:ValidationAssist.Background="{x:Null}"
+                     materialDesign:ValidationAssist.UsePopup="True" Height="45"/>
+
+            <!-- SDT -->
+            <TextBlock Text="Số điện thoại" FontWeight="Medium" Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
+                     Text="{Binding Supplier.SupplierPhone, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,15"
+                     materialDesign:ValidationAssist.Background="{x:Null}"
+                     materialDesign:ValidationAssist.UsePopup="True" Height="45"/>
+
+            <!-- Email -->
+            <TextBlock Text="Email" FontWeight="Medium" Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
+                    Text="{Binding Supplier.SupplierEmail, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,0,0,15"
+                    materialDesign:ValidationAssist.Background="{x:Null}"
+                    materialDesign:ValidationAssist.UsePopup="True" Height="45"/>
+
+            <!-- Mã thuế -->
+            <TextBlock Text="Mã thuế" FontWeight="Medium" Margin="0,0,0,5"/>
+            <TextBox Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
+                     Text="{Binding Supplier.TaxCode, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,15"
+                     materialDesign:ValidationAssist.Background="{x:Null}"
+                     materialDesign:ValidationAssist.UsePopup="True" 
+                     Height="45"/>
+
+            <!-- Trạng thái -->
+            <TextBlock Text="Trạng thái" FontWeight="Medium" Margin="0,0,0,5"/>
+            <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBoxWithBorder}"
+                  ItemsSource="{Binding StatusOptions}"
+                  SelectedValue="{Binding Supplier.Status, UpdateSourceTrigger=PropertyChanged}"
+                  Margin="0,0,0,15"
+                  BorderBrush="Black"
+                  Height="45">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Footer -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Hủy bỏ"
+            Command="{Binding CancelCommand}"
+            Style="{StaticResource MaterialDesignRaisedButton}"
+            Background="#EF4444"
+            Foreground="White"
+            Width="100"
+            Height="36"
+            Margin="0,0,10,0"/>
+
+            <Button Content="Lưu thay đổi"
+            Command="{Binding SaveCommand}"
+            Style="{StaticResource MaterialDesignRaisedButton}"
+            Background="#10B981"
+            Foreground="White"
+            Width="120"
+            Height="36"/>
+        </StackPanel>
+    </Grid>
+</Window>
