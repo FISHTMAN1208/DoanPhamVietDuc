@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -23,14 +23,18 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Factory" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
-                    <TextBlock Text="QUẢN LÝ NHÀ CUNG CẤP" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                           Width="60" 
+                           Height="60" 
+                           Margin="20 0"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Text="QUẢN LÝ NHÀ CUNG CẤP" FontSize="24" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="Thêm nhà cung cấp" 
-                         Width="165" 
+                    <Button Content="➕ Thêm nhà cung cấp" 
+                         Width="auto" 
                          Height="36" 
                          Command="{Binding AddSupplierCommand}" 
                          Style="{StaticResource MaterialDesignRaisedButton}"
@@ -38,22 +42,24 @@
                          Foreground="White"
                          Margin="0 0 20 0"/>
 
-                    <Button Content="Xuất PDF"
-                         Width="140" 
-                         Height="36"
-                         Command="{Binding ExportPDFSupplierCommand}"
-                         Style="{StaticResource MaterialDesignRaisedButton}"
-                         Background="#10B981"
-                         Foreground="White"
-                         Margin="0 0 20 0"/>
+                    <Button Content="🔍 Xem chi tiết" 
+                        Width="auto" 
+                        Height="36" 
+                        Command="{Binding ViewDetailCommand}" 
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="Green"
+                        Foreground="White"
+                        Margin="0 0 20 0"/>
 
-                    <TextBox Width="250" 
+                    <TextBox Width="350" 
                           Height="50" 
                           Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                           Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                           materialDesign:HintAssist.Hint="Tìm kiếm..."
+                          materialDesign:HintAssist.Foreground="Black"
+                          Background="white"
                           Margin="20 0 20 0"/>
-                    <Button Content="Làm mới" 
+                    <Button Content="🔄 Làm mới" 
                             Width="130" 
                             Height="36"
                             Command="{Binding RefreshCommand}" 
@@ -108,7 +114,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Tên nhà cung cấp" Binding="{Binding SupplierName}" Width="200">
+                    <DataGridTextColumn Header="Tên nhà cung cấp" Binding="{Binding SupplierName}" Width="250">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -118,7 +124,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding SupplierAddress}" Width="320">
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding SupplierAddress}" Width="380">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />

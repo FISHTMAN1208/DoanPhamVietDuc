@@ -2,12 +2,12 @@
 using System.Windows.Input;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditLanguageViewModel : BaseViewModel
+    public class EditLanguageViewModel : BaseViewModel
 	{
 		private readonly IDialogService _dialogService;
 		private readonly IDataService _dataService;

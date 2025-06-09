@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Books;
 using System;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class BookListViewModel : BaseViewModel
+    public class BookListViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -32,11 +32,25 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _selectedBook, value);
 		}
 
+		private string _searchText;
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if (SetProperty(ref _searchText, value))
+				{
+					SearchBookCommmand.Execute(null);
+				}
+			}
+		}
+
 		public ICommand LoadBooksCommand { get; }
 		public ICommand ViewDetailCommand { get; }
 		public ICommand AddBookCommand { get; }
 		public ICommand EditBookCommand { get; }
 		public ICommand DeleteBookCommand { get; }
+		public ICommand SearchBookCommmand { get; }
 
 		public BookListViewModel(IDataService dataService, IDialogService dialogService)
 		{
@@ -62,8 +76,22 @@ namespace DoanPhamVietDuc.ViewModels
 				async param => await EditBookAsync(param as Book ?? SelectedBook),
 			_ => SelectedBook != null);
 
+			SearchBookCommmand = new AsyncRelayCommand(async _ => await SearchBookAsync());
+
 			// Load books khi khởi tạo
-			Task.Run(() => LoadBooksAsync());
+			_ = InitializeAsync();
+		}
+
+		private async Task InitializeAsync()
+		{
+			try
+			{
+				await LoadBooksAsync().ConfigureAwait(true);
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể khởi tạo: {ex.Message}");
+			}
 		}
 
 		private async Task LoadBooksAsync()
@@ -79,13 +107,13 @@ namespace DoanPhamVietDuc.ViewModels
 				IsBusy = false;
 			}
 		}
+
 		private void ViewBookDetail()
 		{
 			if (SelectedBook != null)
 			{
 				BookDetailWindow detailWindow = new BookDetailWindow(SelectedBook);
 				detailWindow.ShowDialog();
-				
 			}
 		}
 
@@ -169,6 +197,36 @@ namespace DoanPhamVietDuc.ViewModels
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", "Không thể xóa sách!");
 				}
+			}
+		}
+
+		private async Task SearchBookAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchText))
+			{
+				await LoadBooksAsync();
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				var books = await _dataService.SearchBooksAsync(SearchText);
+				Books.Clear();
+
+				foreach (var book in books)
+				{
+					Books.Add(book);
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tìm kiếm dữ liệu: {ex.Message}");
+				return;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 	}

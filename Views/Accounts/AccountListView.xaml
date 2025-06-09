@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="DoanPhamVietDuc.Views.Accounts.AccountListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DoanPhamVietDuc.Views.Accounts"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header và Toolbar -->
+        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Tiêu đề -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="AccountAddOutline" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
+                    <TextBlock Text="QUẢN LÝ TÀI KHOẢN" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Toolbar -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="Thêm tài khoản " 
+                        Width="140" 
+                        Height="36" 
+                        Command="{Binding AddAccountCommand}" 
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="#1E293B"
+                        Foreground="White"
+                        Margin="0 0 20 0"/>
+
+                    <Button Content="Xem chi tiết" 
+                        Width="140"
+                        Height="36" 
+                        Command="{Binding ViewDetailAccountCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="#D50B8B"
+                        Foreground="White"
+                        Margin="0 0 20 0"/>
+
+                    <Button Content="Xuất PDF"
+                        Width="140" 
+                        Height="36"
+                        Command="{Binding ExportPDFCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="#10B981"
+                        Foreground="White"
+                        Margin="0 0 20 0"/>
+
+                    <TextBox Width="350" 
+                         Height="49" 
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+                         materialDesign:HintAssist.Hint="Tìm kiếm..."
+                         materialDesign:HintAssist.Foreground="Black"
+                         Margin="20 0 20 0"/>
+                    <Button Content="Làm mới"
+                            Width="130" 
+                            Height="36"
+                            Command="{Binding RefreshCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="#3B82F6" 
+                            Foreground="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- DataGrid -->
+        <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="10" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp3">
+            <DataGrid ItemsSource="{Binding Accounts}" 
+                  SelectedItem="{Binding SelectedAccount}"
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  SelectionMode="Single"
+                  Style="{StaticResource MaterialDesignDataGrid}"
+                  CanUserAddRows="False"
+                  RowHeight="50" 
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.IsSharedSizeScope="True"
+                  materialDesign:DataGridAssist.CellPadding="10"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="10">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="Padding" Value="8" />
+                    </Style>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="Background" Value="#F3F4F6" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding AccountID}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Tên đăng nhập" Binding="{Binding Username}" Width="280">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Tên nhân viên" Binding="{Binding Staff.FullName}" Width="280">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="180">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Lần cuối đăng nhập" Width="280">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="LastLogin" StringFormat="{}{0:dd/MM/yyyy}" />
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn Header="Thao tác" Width="250">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Content="Sửa" 
+                                        Width="70" 
+                                        Height="30" 
+                                        Margin="4 0" 
+                                        Background="#F59E0B" 
+                                        Foreground="White" 
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding DataContext.EditAccountCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"/>
+                                    <Button Content="Xóa" 
+                                        Width="70" 
+                                        Height="30" 
+                                        Margin="4 0" 
+                                        Background="#EF4444" 
+                                        Foreground="White" 
+                                        Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        Command="{Binding DataContext.DeleteAccountCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

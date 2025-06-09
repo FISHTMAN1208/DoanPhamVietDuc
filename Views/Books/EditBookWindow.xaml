@@ -7,90 +7,171 @@
         xmlns:local="clr-namespace:DoanPhamVietDuc.Views.Books"
         mc:Ignorable="d"
         Title="Sửa thông tin sách" 
-        Height="1120" 
-        Width="1500"
+        Height="auto" 
+        Width="1370"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        Background="#F8FAFC">
+        Background="#FAFBFC">
 
     <Window.Resources>
-        <Style x:Key="MaterialDesignOutlinedTextBoxWithBorder" 
-               BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" 
-               TargetType="TextBox">
-            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+        <!-- Primary Gradient -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Modern TextBox Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
             <Setter Property="BorderBrush" Value="#E2E8F0"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                </Trigger>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#6366F1"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#667EEA"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
- 
-        <Style x:Key="MaterialDesignOutlinedComboBoxWithBorder" 
-               BasedOn="{StaticResource MaterialDesignOutlinedComboBox}" 
-               TargetType="ComboBox">
-            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
             <Setter Property="BorderBrush" Value="#E2E8F0"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                </Trigger>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#6366F1"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#667EEA"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="MaterialDesignOutlinedDatePickerWithBorder" 
-               BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}" 
-               TargetType="DatePicker">
-            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#1E293B"/>
+        <!-- Modern DatePicker Style -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}">
             <Setter Property="BorderBrush" Value="#E2E8F0"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#CBD5E1"/>
+                </Trigger>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#6366F1"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#667EEA"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <!-- Modern GroupBox Style -->
+        <Style x:Key="ModernGroupBox" TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="12">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" 
+                                        Background="{StaticResource PrimaryGradient}" 
+                                        Padding="16,12" 
+                                        CornerRadius="12,12,0,0">
+                                    <TextBlock Text="{TemplateBinding Header}" 
+                                               FontWeight="SemiBold" 
+                                               FontSize="16" 
+                                               Foreground="White"/>
+                                </Border>
+                                <ContentPresenter Grid.Row="1" 
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Button Styles -->
+        <Style x:Key="ModernPrimaryButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style x:Key="ModernDangerButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="10">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FAFBFC" Offset="0"/>
+                <GradientStop Color="#F1F5F9" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#1E293B" Padding="20,15">
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="30,25">
             <DockPanel LastChildFill="True">
-                <materialDesign:PackIcon Kind="BookEdit" 
-                                         Width="32" 
-                                         Height="32" 
-                                         Foreground="White" 
-                                         VerticalAlignment="Center"/>
+                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                       Width="50" 
+                       Height="50" 
+                       VerticalAlignment="Center"/>
                 <TextBlock Text="SỬA THÔNG TIN SÁCH" 
-                           FontSize="22" 
+                           FontSize="26" 
                            FontWeight="Bold" 
                            Foreground="White" 
-                           Margin="15,0,0,0" 
+                           Margin="20,0,0,0" 
                            VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="30,25,30,20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" Margin="0,0,20,0">
+                <!-- Left Column - Form Fields -->
+                <Grid Grid.Column="0" Margin="0,0,25,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -98,13 +179,9 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <GroupBox Grid.Row="0" 
-                              Header="Thông tin cơ bản" 
-                              Margin="0,0,0,15" 
-                              FontSize="16"
-                              FontWeight="Bold"
-                              Style="{StaticResource MaterialDesignGroupBox}">
-                        <Grid Margin="0,10,0,0">
+                    <!-- Group 1: Thông tin cơ bản -->
+                    <GroupBox Grid.Row="0" Header="📚 Thông tin cơ bản" Style="{StaticResource ModernGroupBox}" Background="AliceBlue">
+                        <Grid Margin="0,15,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -116,82 +193,68 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Tiêu đề -->
-                            <TextBox Grid.Row="0" 
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Tiêu đề sách"
+                            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="✏️ Tiêu đề sách"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.Title, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,0,15"/>
+                                     Margin="0,0,0,20"/>
 
-                            <!-- Tác giả -->
-                            <TextBox Grid.Row="1" 
-                                     Grid.Column="0"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Tác giả"
+                            <TextBox Grid.Row="1" Grid.Column="0"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="👤 Tác giả"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.Author, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,10,15"/>
+                                     Margin="0,0,15,20"/>
 
-                            <!-- Thể loại -->
-                            <ComboBox Grid.Row="1" 
-                                      Grid.Column="1"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBoxWithBorder}"
-                                      materialDesign:HintAssist.Hint="Thể loại"
+                            <ComboBox Grid.Row="1" Grid.Column="1"
+                                      Style="{StaticResource ModernComboBox}"
+                                      materialDesign:HintAssist.Hint="📂 Thể loại"
+                                      materialDesign:HintAssist.Foreground="Gray"
                                       ItemsSource="{Binding Categories}"
                                       SelectedValue="{Binding Book.CategoryID}"
                                       SelectedValuePath="CategoryID"
                                       DisplayMemberPath="CategoryName"
-                                      Margin="0,0,0,15"/>
+                                      Margin="0,0,0,20"/>
 
-                            <!-- Ngôn ngữ -->
-                            <ComboBox Grid.Row="2" 
-                                      Grid.Column="0"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBoxWithBorder}"
-                                      materialDesign:HintAssist.Hint="Ngôn ngữ"
+                            <ComboBox Grid.Row="2" Grid.Column="0"
+                                      Style="{StaticResource ModernComboBox}"
+                                      materialDesign:HintAssist.Hint="🌐 Ngôn ngữ"
+                                      materialDesign:HintAssist.Foreground="Gray"
                                       ItemsSource="{Binding Languages}"
                                       SelectedValue="{Binding Book.LanguageID}"
                                       SelectedValuePath="LanguageID"
                                       DisplayMemberPath="LanguageName"
-                                      Margin="0,0,10,15"/>
+                                      Margin="0,0,15,20"/>
 
-                            <!-- Loại bìa -->
-                            <ComboBox Grid.Row="2" 
-                                      Grid.Column="1"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBoxWithBorder}"
-                                      materialDesign:HintAssist.Hint="Loại bìa"
+                            <ComboBox Grid.Row="2" Grid.Column="1"
+                                      Style="{StaticResource ModernComboBox}"
+                                      materialDesign:HintAssist.Hint="📖 Loại bìa"
+                                      materialDesign:HintAssist.Foreground="Gray"
                                       ItemsSource="{Binding BookCoverTypes}"
                                       SelectedValue="{Binding Book.BookCoverTypeID}"
                                       SelectedValuePath="BookCoverTypeID"
                                       DisplayMemberPath="BookCoverTypeName"
-                                      Margin="0,0,0,15"/>
+                                      Margin="0,0,0,20"/>
 
-                            <!-- Mã ISBN -->
-                            <TextBox Grid.Row="3" 
-                                     Grid.Column="0"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Mã ISBN"
+                            <TextBox Grid.Row="3" Grid.Column="0"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="🔖 Mã ISBN"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.ISBNCode, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,10,0"/>
+                                     Margin="0,0,15,0"/>
 
-                            <!-- Số trang -->
-                            <TextBox Grid.Row="3" 
-                                     Grid.Column="1"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Số trang"
-                                     Text="{Binding Book.PageCount, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,0,0"/>
+                            <TextBox Grid.Row="3" Grid.Column="1"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="📄 Số trang"
+                                     materialDesign:HintAssist.Foreground="Gray"
+                                     Text="{Binding Book.PageCount, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
 
                     <!-- Group 2: Thông tin xuất bản -->
-                    <GroupBox Grid.Row="1" 
-                              Header="Thông tin xuất bản" 
-                              FontSize="16"
-                              FontWeight="Bold"
-                              Margin="0,0,0,15" 
-                              Style="{StaticResource MaterialDesignGroupBox}">
-                        <Grid Margin="0,10,0,0">
+                    <GroupBox Grid.Row="1" Header="🏢 Thông tin xuất bản" Style="{StaticResource ModernGroupBox}" Background="AliceBlue">
+                        <Grid Margin="0,15,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -201,43 +264,35 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Nhà xuất bản -->
-                            <TextBox Grid.Row="0" 
-                                     Grid.Column="0"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Nhà xuất bản"
+                            <TextBox Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="🏭 Nhà xuất bản"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.PublisherName, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,10,15"/>
+                                     Margin="0,0,15,20"/>
 
-                            <!-- Nhà cung cấp -->
-                            <ComboBox Grid.Row="0" 
-                                      Grid.Column="1"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBoxWithBorder}"
-                                      materialDesign:HintAssist.Hint="Nhà cung cấp"
+                            <ComboBox Grid.Row="0" Grid.Column="1"
+                                      Style="{StaticResource ModernComboBox}"
+                                      materialDesign:HintAssist.Hint="🚚 Nhà cung cấp"
+                                      materialDesign:HintAssist.Foreground="Gray"
                                       ItemsSource="{Binding Suppliers}"
                                       SelectedValuePath="SupplierID"
                                       SelectedValue="{Binding Book.SupplierID}"
                                       DisplayMemberPath="SupplierName"
-                                      Margin="0,0,0,15"/>
+                                      Margin="0,0,0,20"/>
 
-                            <!-- Thời gian xuất bản -->
-                            <DatePicker Grid.Row="1" 
-                                        Grid.Column="0"
-                                        Style="{StaticResource MaterialDesignOutlinedDatePickerWithBorder}"
-                                        materialDesign:HintAssist.Hint="Ngày xuất bản"
+                            <DatePicker Grid.Row="1" Grid.Column="0"
+                                        Style="{StaticResource ModernDatePicker}"
+                                        materialDesign:HintAssist.Hint="📅 Ngày xuất bản"
+                                        materialDesign:HintAssist.Foreground="Gray"
                                         SelectedDate="{Binding Book.PublishTime}"
-                                        Margin="0,0,10,0"/>
+                                        Margin="0,0,15,0"/>
                         </Grid>
                     </GroupBox>
 
                     <!-- Group 3: Thông tin kinh doanh -->
-                    <GroupBox Grid.Row="2" 
-                              Header="Thông tin kinh doanh" 
-                              FontSize="16"
-                              FontWeight="Bold"
-                              Margin="0,0,0,15"
-                              Style="{StaticResource MaterialDesignGroupBox}">
-                        <Grid Margin="0,10,0,0">
+                    <GroupBox Grid.Row="2" Header="💰 Thông tin kinh doanh" Style="{StaticResource ModernGroupBox}" Background="AliceBlue">
+                        <Grid Margin="0,15,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -247,113 +302,108 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Giá bán -->
-                            <TextBox Grid.Row="0" 
-                                     Grid.Column="0"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Giá bán (VNĐ)"
+                            <TextBox Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="💵 Giá bán (VNĐ)"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.Price, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,10,15"/>
+                                     Margin="0,0,15,20"/>
 
-                            <!-- Số lượng -->
-                            <TextBox Grid.Row="0" 
-                                     Grid.Column="1"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Số lượng"
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="📦 Số lượng"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.Quantity, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,0,15"/>
+                                     Margin="0,0,0,20"/>
 
-                            <!-- Mô tả -->
-                            <TextBox Grid.Row="1" 
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="2"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Mô tả"
+                            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="📝 Mô tả chi tiết"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.Description, UpdateSourceTrigger=PropertyChanged}"
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"
-                                     VerticalAlignment="Stretch"
-                                     Height="100"
-                                     Margin="0,0,0,0"/>
+                                     Height="120"/>
                         </Grid>
                     </GroupBox>
 
-                    <!-- Group 4: Thông tin cập nhật (Mới thêm) -->
-                    <GroupBox Grid.Row="3"
-                              Header="Thông tin cập nhật" 
-                              FontSize="16"
-                              FontWeight="Bold"
-                              Style="{StaticResource MaterialDesignGroupBox}">
-                        <Grid Margin="0,10,0,0">
+                    <!-- Group 4: Thông tin cập nhật -->
+                    <GroupBox Grid.Row="3" Header="⚙️ Thông tin cập nhật" Style="{StaticResource ModernGroupBox}" Background="AliceBlue">
+                        <Grid Margin="0,15,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
 
-                            <!-- Người thêm -->
-                            <TextBox Grid.Row="0" 
-                                     Grid.Column="0"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                     materialDesign:HintAssist.Hint="Người cập nhật"
+                            <TextBox Grid.Column="0"
+                                     Style="{StaticResource ModernTextBox}"
+                                     materialDesign:HintAssist.Hint="👥 Người cập nhật"
+                                     materialDesign:HintAssist.Foreground="Gray"
                                      Text="{Binding Book.ModifyBy, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,0,10,15"/>
+                                     Margin="0,0,15,0"/>
 
-                            <!-- Thời gian cập nhật -->
-                            <DatePicker Grid.Row="0" 
-                                        Grid.Column="1"
-                                        Style="{StaticResource MaterialDesignOutlinedDatePickerWithBorder}"
-                                        materialDesign:HintAssist.Hint="Thời gian cập nhật"
-                                        SelectedDate="{Binding Book.ModifyTime}"
-                                        Margin="0,0,0,15"/>
+                            <DatePicker Grid.Column="1"
+                                        Style="{StaticResource ModernDatePicker}"
+                                        materialDesign:HintAssist.Hint="🕒 Thời gian cập nhật"
+                                        SelectedDate="{Binding Book.ModifyTime}"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
 
                 <!-- Right Column - Image Preview -->
                 <Grid Grid.Column="1">
-                    <GroupBox Header="Ảnh bìa sách" FontSize="16" FontWeight="Bold" Style="{StaticResource MaterialDesignGroupBox}">
-                        <StackPanel Margin="0,10,0,0">
-                            <Border Width="220" 
-                                    Height="300" 
-                                    BorderThickness="1" 
+                    <GroupBox Header="🖼️ Ảnh bìa sách" Style="{StaticResource ModernGroupBox}">
+                        <StackPanel Margin="0,15,0,0">
+                            <Border Width="240" Height="320" 
+                                    BorderThickness="3" 
                                     BorderBrush="#E2E8F0" 
-                                    CornerRadius="5" 
-                                    Background="#F8FAFC" 
-                                    Margin="0,0,0,15"
+                                    CornerRadius="15" 
+                                    Background="White" 
+                                    Margin="0,0,0,20"
                                     HorizontalAlignment="Center">
                                 <Grid>
                                     <Image Source="{Binding ImagePreview}" 
                                            Stretch="Uniform" 
-                                           Margin="10"/>
-                                    <TextBlock Text="Chưa có ảnh" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center" 
-                                               Visibility="{Binding HasNoImage, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                           Margin="15"/>
+                                    <Border Background="#F8FAFC" 
+                                            CornerRadius="12"
+                                            Visibility="{Binding HasNoImage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="ImageOff" 
+                                                                     Width="48" 
+                                                                     Height="48" 
+                                                                     Foreground="#CBD5E1" 
+                                                                     Margin="0,0,0,10"
+                                                                     HorizontalAlignment="Center"/>
+                                            <TextBlock Text="Chưa có ảnh bìa" 
+                                                       FontSize="14"
+                                                       Foreground="#64748B"
+                                                       HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
                                 </Grid>
                             </Border>
 
-                            <Grid Margin="0,0,0,10">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBox Grid.Column="0"
-                                         Style="{StaticResource MaterialDesignOutlinedTextBoxWithBorder}"
-                                         materialDesign:HintAssist.Hint="Đường dẫn ảnh"
+                                         Style="{StaticResource ModernTextBox}"
+                                         materialDesign:HintAssist.Hint="🔗 Đường dẫn ảnh"
+                                         materialDesign:HintAssist.Foreground="Gray"
                                          Text="{Binding Book.ImageUrl, UpdateSourceTrigger=PropertyChanged}"
                                          IsReadOnly="True"
-                                         Margin="0,0,10,0"/>
+                                         Margin="0,0,15,0"/>
 
                                 <Button Grid.Column="1"
-                                        Content="Chọn ảnh"
+                                        Content="📁 Chọn ảnh"
                                         Command="{Binding BrowseImageCommand}"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
-                                        Background="#6366F1"
-                                        Foreground="White"/>
+                                        Style="{StaticResource ModernPrimaryButton}"
+                                        Background="#210F37"
+                                        Height="42"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -361,26 +411,24 @@
             </Grid>
         </ScrollViewer>
 
-        <!-- Footer with buttons -->
-        <Grid Grid.Row="2" Background="#F1F5F9" >
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="White" Padding="30,20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Hủy bỏ"
+                <Button Content="❌ Hủy bỏ"
                         Command="{Binding CancelCommand}"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="#EF4444"
-                        Foreground="White"
-                        Width="120"
-                        Height="40"
-                        Margin="0,0,15,0"/>
+                        Style="{StaticResource ModernDangerButton}"
+                        Width="140"
+                        Height="45"
+                        Margin="0,0,20,0"
+                        Background="#FF3F33"/>
 
-                <Button Content="Lưu thay đổi"
+                <Button Content="✅ Lưu thay đổi"
                         Command="{Binding SaveCommand}"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="#F59E0B"
-                        Foreground="White"
-                        Width="120"
-                        Height="40"/>
+                        Style="{StaticResource ModernPrimaryButton}"
+                        Width="180"
+                        Background="#075B5E"
+                        Height="45"/>
             </StackPanel>
-        </Grid>
+        </Border>
     </Grid>
 </Window>

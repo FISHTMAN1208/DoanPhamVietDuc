@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoanPhamVietDuc.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,17 +17,19 @@ namespace DoanPhamVietDuc.Models
 
 		[Required]
 		[MaxLength(50)]
+		[UsernameValidation]
 		public string Username { get; set; }
 
 		[Required]
-		public string PasswordHash { get; set; }
+		public string Password { get; set; }
 
 		[Required]
 		public int StaffID { get; set; }
 
 		[Required]
 		[MaxLength(20)]
-		public string Role { get; set; } 
+		[RoleValidation]
+		public string Role { get; set; }
 
 		[Required]
 		[MaxLength(20)]
@@ -37,12 +40,16 @@ namespace DoanPhamVietDuc.Models
 		[Required]
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-		[Required]
-		[MaxLength(100)]
-		public string CreatedBy { get; set; }
+
+		public string? CreatedBy { get; set; }
 
 		// Navigation property
 		[ForeignKey("StaffID")]
 		public virtual Staff Staff { get; set; }
+
+		// Helper methods
+		public bool IsActive => Status == "Active";
+		public bool IsAdmin => Role == "Admin";
+		public bool IsStaff => Role == "Staff";
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -18,10 +18,10 @@ using System.Windows.Shapes;
 
 namespace DoanPhamVietDuc.Views.Suppliers
 {
-	/// <summary>
-	/// Interaction logic for EditSupplierWindow.xaml
-	/// </summary>
-	public partial class EditSupplierWindow : Window
+    /// <summary>
+    /// Interaction logic for EditSupplierWindow.xaml
+    /// </summary>
+    public partial class EditSupplierWindow : Window
 	{
 		private readonly EditSupplierViewModel _viewModel;
 		public Supplier UpdatedSupplier { get; private set; }

@@ -1,6 +1,5 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.ViewModels
 {

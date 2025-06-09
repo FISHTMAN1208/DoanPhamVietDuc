@@ -100,7 +100,7 @@ namespace DoanPhamVietDuc.Migrations
                     AccountID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaffID = table.Column<int>(type: "int", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -115,8 +115,7 @@ namespace DoanPhamVietDuc.Migrations
                         name: "FK_Accounts_Staffs_StaffID",
                         column: x => x.StaffID,
                         principalTable: "Staffs",
-                        principalColumn: "StaffID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StaffID");
                 });
 
             migrationBuilder.CreateTable(
@@ -126,9 +125,9 @@ namespace DoanPhamVietDuc.Migrations
                     InvoiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InvoiceCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CustomerPhone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CustomerName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    CustomerPhone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -207,7 +206,7 @@ namespace DoanPhamVietDuc.Migrations
                     ImportID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierID = table.Column<int>(type: "int", nullable: false),
-                    StaffID = table.Column<int>(type: "int", nullable: false),
+                    StaffID = table.Column<int>(type: "int", nullable: true),
                     ImportDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImportStatus = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -300,9 +299,9 @@ namespace DoanPhamVietDuc.Migrations
                 columns: new[] { "CategoryID", "CategoryName", "ModifyBy", "ModifyTime" },
                 values: new object[,]
                 {
-                    { 1, "Văn học", "Phạm Việt Đức", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8633) },
-                    { 2, "Kinh tế", "Hoàng Thu Hiền", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8634) },
-                    { 3, "Kỹ năng sống", "Nguyễn Việt Anh", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8636) }
+                    { 1, "Văn học", "Phạm Việt Đức", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5092) },
+                    { 2, "Kinh tế", "Hoàng Thu Hiền", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5095) },
+                    { 3, "Kỹ năng sống", "Nguyễn Việt Anh", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5096) }
                 });
 
             migrationBuilder.InsertData(
@@ -330,27 +329,27 @@ namespace DoanPhamVietDuc.Migrations
 
             migrationBuilder.InsertData(
                 table: "Accounts",
-                columns: new[] { "AccountID", "CreatedBy", "CreatedDate", "LastLogin", "PasswordHash", "Role", "StaffID", "Status", "Username" },
+                columns: new[] { "AccountID", "CreatedBy", "CreatedDate", "LastLogin", "Password", "Role", "StaffID", "Status", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Phạm Việt Đức", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8915), null, "123456", "Admin", 1, "Active", "phamvietduc123" },
-                    { 2, "Hoàng Thu Hiền", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8917), null, "19062003", "Staff", 1, "Inactive", "chemchem123" }
+                    { 1, "Phạm Việt Đức", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5357), null, "123456", "Admin", 1, "Active", "phamvietduc123" },
+                    { 2, "Hoàng Thu Hiền", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5361), null, "19062003", "Staff", 2, "Inactive", "chemchem123" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Books",
                 columns: new[] { "ID", "Author", "BookCoverTypeID", "CategoryID", "Description", "ISBNCode", "ImageUrl", "LanguageID", "ModifyBy", "ModifyTime", "PageCount", "Price", "PublishTime", "PublisherName", "Quantity", "SupplierID", "Title" },
-                values: new object[] { 1, "Nguyễn Nhật Ánh", 1, 1, "Mắt biếc là một tác phẩm của nhà văn Nguyễn Nhật Ánh...", "978-604-1-12345-6", "/Images/mat-biec.jpg", 1, "Admin", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8889), 300, 85000m, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NXB Kim Đồng", 100, 1, "Mắt biếc" });
+                values: new object[] { 1, "Nguyễn Nhật Ánh", 1, 1, "Mắt biếc là một tác phẩm của nhà văn Nguyễn Nhật Ánh...", "978-604-1-12345-6", "/Images/mat-biec.jpg", 1, "Admin", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5328), 300, 85000m, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "NXB Kim Đồng", 100, 1, "Mắt biếc" });
 
             migrationBuilder.InsertData(
                 table: "Imports",
                 columns: new[] { "ImportID", "CreateBy", "CreateTime", "ImportDate", "ImportStatus", "Notes", "StaffID", "SupplierID", "TotalAmount" },
-                values: new object[] { 1, "Phạm Việt Đức", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(9060), new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Đã nhập", "Hàng loại 3, dùng để test", 1, 1, 300000m });
+                values: new object[] { 1, "Phạm Việt Đức", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5503), new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Đã nhập", "Hàng loại 3, dùng để test", 1, 1, 300000m });
 
             migrationBuilder.InsertData(
                 table: "Invoices",
                 columns: new[] { "InvoiceID", "CreateBy", "CreateTime", "CustomerName", "CustomerPhone", "InvoiceCode", "InvoiceDate", "Notes", "PaymentMethod", "StaffID", "Status", "TotalAmount" },
-                values: new object[] { 1, "Lê Thị Thu An", new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(9008), "Trương Mã Hóa", "0969288214", "2025-M1901", new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Không có", "Tiền mặt", 1, "Đã thanh toán", 720000m });
+                values: new object[] { 1, "Lê Thị Thu An", new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5452), "Trương Mã Hóa", "0969288214", "2025-M1901", new DateTime(2025, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "Không có", "Tiền mặt", 1, "Đã thanh toán", 720000m });
 
             migrationBuilder.InsertData(
                 table: "ImportDetails",

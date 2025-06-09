@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using System;
 using System.Collections.Generic;
@@ -13,14 +13,13 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class AddImportViewModel : BaseViewModel
+    public class AddImportViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
 		private readonly Window _window;
 		private event EventHandler<Import> ImportSaved;
 
-		// Sửa từ _imports thành _import và từ Imports thành Import
 		private Import _import;
 		public Import Import
 		{
@@ -28,7 +27,7 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _import, value);
 		}
 
-		// Sử dụng ObservableImportDetail thay vì ImportDetail
+
 		private ObservableImportDetail _currentDetail;
 		public ObservableImportDetail CurrentDetail
 		{
@@ -36,7 +35,6 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _currentDetail, value);
 		}
 
-		// Sử dụng ObservableImportDetail thay vì ImportDetail
 		private ObservableCollection<ObservableImportDetail> _importDetails;
 		public ObservableCollection<ObservableImportDetail> ImportDetails
 		{
@@ -115,7 +113,7 @@ namespace DoanPhamVietDuc.ViewModels
 				Suppliers = new ObservableCollection<Supplier>(suppliers);
 				Books = new ObservableCollection<Book>(books);
 
-				// Sửa từ Imports thành Import và ImportID thành SupplierID
+				
 				if (Suppliers.Count > 0)
 				{
 					Import.SupplierID = Suppliers[0].SupplierID;

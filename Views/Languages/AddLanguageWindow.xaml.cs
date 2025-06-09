@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 namespace DoanPhamVietDuc.Views.Languages
 {
-	public partial class AddLanguageWindow : Window
+    public partial class AddLanguageWindow : Window
 	{
 		public readonly AddLanguageViewModel _viewmodel;
 		public Language NewLanguage { get; private set; }

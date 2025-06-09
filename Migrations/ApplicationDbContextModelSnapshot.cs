@@ -41,7 +41,7 @@ namespace DoanPhamVietDuc.Migrations
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -74,8 +74,8 @@ namespace DoanPhamVietDuc.Migrations
                         {
                             AccountID = 1,
                             CreatedBy = "Phạm Việt Đức",
-                            CreatedDate = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8915),
-                            PasswordHash = "123456",
+                            CreatedDate = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5357),
+                            Password = "123456",
                             Role = "Admin",
                             StaffID = 1,
                             Status = "Active",
@@ -85,10 +85,10 @@ namespace DoanPhamVietDuc.Migrations
                         {
                             AccountID = 2,
                             CreatedBy = "Hoàng Thu Hiền",
-                            CreatedDate = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8917),
-                            PasswordHash = "19062003",
+                            CreatedDate = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5361),
+                            Password = "19062003",
                             Role = "Staff",
-                            StaffID = 1,
+                            StaffID = 2,
                             Status = "Inactive",
                             Username = "chemchem123"
                         });
@@ -185,7 +185,7 @@ namespace DoanPhamVietDuc.Migrations
                             ImageUrl = "/Images/mat-biec.jpg",
                             LanguageID = 1,
                             ModifyBy = "Admin",
-                            ModifyTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8889),
+                            ModifyTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5328),
                             PageCount = 300,
                             Price = 85000m,
                             PublishTime = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -254,21 +254,21 @@ namespace DoanPhamVietDuc.Migrations
                             CategoryID = 1,
                             CategoryName = "Văn học",
                             ModifyBy = "Phạm Việt Đức",
-                            ModifyTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8633)
+                            ModifyTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5092)
                         },
                         new
                         {
                             CategoryID = 2,
                             CategoryName = "Kinh tế",
                             ModifyBy = "Hoàng Thu Hiền",
-                            ModifyTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8634)
+                            ModifyTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5095)
                         },
                         new
                         {
                             CategoryID = 3,
                             CategoryName = "Kỹ năng sống",
                             ModifyBy = "Nguyễn Việt Anh",
-                            ModifyTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(8636)
+                            ModifyTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5096)
                         });
                 });
 
@@ -301,7 +301,7 @@ namespace DoanPhamVietDuc.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("StaffID")
+                    b.Property<int?>("StaffID")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierID")
@@ -323,7 +323,7 @@ namespace DoanPhamVietDuc.Migrations
                         {
                             ImportID = 1,
                             CreateBy = "Phạm Việt Đức",
-                            CreateTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(9060),
+                            CreateTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5503),
                             ImportDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImportStatus = "Đã nhập",
                             Notes = "Hàng loại 3, dùng để test",
@@ -389,16 +389,15 @@ namespace DoanPhamVietDuc.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime?>("CreateTime")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CustomerName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CustomerPhone")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -407,7 +406,7 @@ namespace DoanPhamVietDuc.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("InvoiceDate")
+                    b.Property<DateTime?>("InvoiceDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Notes")
@@ -442,7 +441,7 @@ namespace DoanPhamVietDuc.Migrations
                         {
                             InvoiceID = 1,
                             CreateBy = "Lê Thị Thu An",
-                            CreateTime = new DateTime(2025, 5, 19, 22, 30, 43, 102, DateTimeKind.Local).AddTicks(9008),
+                            CreateTime = new DateTime(2025, 6, 4, 15, 56, 25, 980, DateTimeKind.Local).AddTicks(5452),
                             CustomerName = "Trương Mã Hóa",
                             CustomerPhone = "0969288214",
                             InvoiceCode = "2025-M1901",
@@ -660,9 +659,9 @@ namespace DoanPhamVietDuc.Migrations
             modelBuilder.Entity("DoanPhamVietDuc.Models.Account", b =>
                 {
                     b.HasOne("DoanPhamVietDuc.Models.Staff", "Staff")
-                        .WithMany()
+                        .WithMany("Accounts")
                         .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Staff");
@@ -708,8 +707,7 @@ namespace DoanPhamVietDuc.Migrations
                     b.HasOne("DoanPhamVietDuc.Models.Staff", "Staff")
                         .WithMany("Imports")
                         .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("DoanPhamVietDuc.Models.Supplier", "Supplier")
                         .WithMany()
@@ -798,6 +796,8 @@ namespace DoanPhamVietDuc.Migrations
 
             modelBuilder.Entity("DoanPhamVietDuc.Models.Staff", b =>
                 {
+                    b.Navigation("Accounts");
+
                     b.Navigation("Imports");
 
                     b.Navigation("Invoices");

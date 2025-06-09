@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DoanPhamVietDuc.Data;
 using DoanPhamVietDuc.Services.DialogService;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Views.Books;
 using DoanPhamVietDuc.Helpers.Commands;
 using System.Windows;
@@ -14,10 +13,11 @@ using DoanPhamVietDuc.Models;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditBookViewModel : BaseViewModel
+    public class EditBookViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;

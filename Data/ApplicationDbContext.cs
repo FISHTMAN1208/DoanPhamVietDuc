@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DoanPhamVietDuc.Models;
+using DoanPhamVietDuc.Helpers;
 
 namespace DoanPhamVietDuc.Data
 {
@@ -46,6 +47,12 @@ namespace DoanPhamVietDuc.Data
 				.HasOne(i => i.Staff)
 				.WithMany(s => s.Imports)
 				.HasForeignKey(i => i.StaffID)
+				.OnDelete(DeleteBehavior.NoAction);
+
+			modelBuilder.Entity<Account>()
+				.HasOne(a => a.Staff)
+				.WithMany(s => s.Accounts)
+				.HasForeignKey(a => a.StaffID)
 				.OnDelete(DeleteBehavior.NoAction);
 
 
@@ -114,7 +121,7 @@ namespace DoanPhamVietDuc.Data
 					{
 						AccountID = 1,
 						Username = "phamvietduc123",
-						PasswordHash = "123456",
+						Password = "123456",
 						StaffID = 1,
 						Role = "Admin",
 						Status = "Active",
@@ -126,8 +133,8 @@ namespace DoanPhamVietDuc.Data
 					{
 						AccountID = 2,
 						Username = "chemchem123",
-						PasswordHash = "19062003",
-						StaffID = 1,
+						Password = "19062003",
+						StaffID = 2,
 						Role = "Staff",
 						Status = "Inactive",
 						CreatedDate = DateTime.Now,

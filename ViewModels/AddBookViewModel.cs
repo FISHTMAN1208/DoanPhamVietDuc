@@ -12,13 +12,14 @@ using System.Windows.Media.Imaging;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
 using DoanPhamVietDuc.Services;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
+using DoanPhamVietDuc.Views.Staffs;
 using Microsoft.Win32;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class AddBookViewModel : BaseViewModel
+    public class AddBookViewModel : BaseViewModel
 	{
 		private readonly IDialogService _dialogService;
 		private readonly IDataService _dataService;
@@ -233,6 +234,7 @@ namespace DoanPhamVietDuc.ViewModels
 					BookSaved?.Invoke(this, Book);
 
 					await _dialogService.ShowInfoAsync("Thông báo", "Thêm sách mới thành công");
+					
 					_window.DialogResult = true;
 					_window.Close();
 				}

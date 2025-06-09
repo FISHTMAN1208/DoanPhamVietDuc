@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.BookCoverTypes;
 using System;
@@ -32,10 +32,24 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _selectedBookCoverType, value);
 		}
 
+		private string _searchText;
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if(SetProperty(ref _searchText, value))
+				{
+					SearchBookCoverTypeCommand.Execute(SearchText);
+				}	
+			}
+		}
+
 		public ICommand LoadBookCoverTypesCommand { get; }
 		public ICommand AddBookCoverTypeCommand { get; }
 		public ICommand EditBookCoverTypeCommand { get; }
 		public ICommand DeleteBookCoverTypeCommand { get; }
+		public ICommand SearchBookCoverTypeCommand { get; }
 		public ICommand RefreshCommand { get; }
 		public ICommand LanguagesCommand { get; }
 
@@ -50,6 +64,8 @@ namespace DoanPhamVietDuc.ViewModels
 
 			LoadBookCoverTypesCommand = new AsyncRelayCommand(async _ => await LoadBookCoverTypesAsync());
 
+			SearchBookCoverTypeCommand = new AsyncRelayCommand(async _ => await SearchBookCoverTypesAsync());
+
 			RefreshCommand = new AsyncRelayCommand(async _ => await LoadBookCoverTypesAsync());
 
 			AddBookCoverTypeCommand = new RelayCommand(_ => AddBookCoverTypeAsync());
@@ -62,7 +78,19 @@ namespace DoanPhamVietDuc.ViewModels
 				async param => await DeleteBookCoverTypeAsync(param as BookCoverType ?? SelectedBookCoverType),
 				_ => SelectedBookCoverType != null);
 
-			Task.Run(() => LoadBookCoverTypesAsync());
+			_ = InitializeAsync();
+		}
+
+		private async Task InitializeAsync()
+		{
+			try
+			{
+				await LoadBookCoverTypesAsync().ConfigureAwait(true);
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể khởi tạo: {ex.Message}");
+			}
 		}
 
 		public async Task LoadBookCoverTypesAsync()
@@ -175,6 +203,36 @@ namespace DoanPhamVietDuc.ViewModels
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", $"Lỗi khi xóa ngôn ngữ: {ex.Message}");
 				}
+			}
+		}
+
+		private async Task SearchBookCoverTypesAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchText))
+			{
+				await LoadBookCoverTypesAsync();
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				var bookCoverTypes = await _dataService.SearchBookCoverTypesAsync(SearchText);
+				BookCoverTypes.Clear();
+
+				foreach (var bookCoverType in bookCoverTypes)
+				{
+					BookCoverTypes.Add(bookCoverType);
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tìm kiếm dữ liệu: {ex.Message}");
+				return;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 	}

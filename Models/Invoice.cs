@@ -19,16 +19,13 @@ namespace DoanPhamVietDuc.Models
 		[MaxLength(20)]
 		public string InvoiceCode { get; set; }
 
-		[Required]
-		public DateTime InvoiceDate { get; set; }
+		public DateTime? InvoiceDate { get; set; }
 
-		[Required]
 		[MaxLength(100)]
-		public string CustomerName { get; set; }
+		public string? CustomerName { get; set; }
 
-		[Required]
 		[MaxLength(15)]
-		public string CustomerPhone { get; set; }
+		public string? CustomerPhone { get; set; }
 
 		[Required]
 		public decimal TotalAmount { get; set; }
@@ -48,7 +45,7 @@ namespace DoanPhamVietDuc.Models
 		public int StaffID { get; set; }
 
 		[Required]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime? CreateTime { get; set; } = DateTime.Now;
 
 		[Required]
 		[MaxLength(100)]

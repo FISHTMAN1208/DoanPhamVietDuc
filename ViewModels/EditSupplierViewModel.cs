@@ -5,12 +5,12 @@ using System.Windows;
 using System.Windows.Input;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditSupplierViewModel : BaseViewModel
+    public class EditSupplierViewModel : BaseViewModel
 	{
 		private readonly IDialogService _dialogService;
 		private readonly IDataService _dataService;

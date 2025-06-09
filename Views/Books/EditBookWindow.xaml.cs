@@ -13,16 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.Views.Books
 {
-	/// <summary>
-	/// Interaction logic for EditBookWindow.xaml
-	/// </summary>
-	public partial class EditBookWindow : Window
+    /// <summary>
+    /// Interaction logic for EditBookWindow.xaml
+    /// </summary>
+    public partial class EditBookWindow : Window
 	{
 		private readonly EditBookViewModel _viewModel;
 		public Book UpdatedBook { get; private set; }

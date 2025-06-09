@@ -29,8 +29,6 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _importDetails, value);
 		}
 
-		public ICommand CloseCommand { get; }
-
 		public ImportDetailViewModel(Import import, Window window)
 		{
 			_window = window;
@@ -41,8 +39,6 @@ namespace DoanPhamVietDuc.ViewModels
 			Import = import;
 			ImportDetails = new ObservableCollection<ImportDetail>(import.ImportDetails ?? new List<ImportDetail>());
 
-			CloseCommand = new RelayCommand(_ => _window.Close());
 		}
 	}
-	
 }

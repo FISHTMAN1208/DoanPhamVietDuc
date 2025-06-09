@@ -1,6 +1,5 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using System;
 using System.Collections.Generic;
@@ -9,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class AddSupplierViewModel : BaseViewModel
+    public class AddSupplierViewModel : BaseViewModel
 	{
 		private List<string> _statusOptions = new List<string> { "Active", "Inactive" };
 		public List<string> StatusOptions => _statusOptions;
@@ -55,8 +55,7 @@ namespace DoanPhamVietDuc.ViewModels
 			bool nameExists = await _dataService.IsSupplierNameExistsAsync(Supplier.SupplierName);
 			if (nameExists)
 			{
-				await _dialogService.ShowInfoAsync("Thông báo",
-					$"Nhà cung cấp '{Supplier.SupplierName}' đã tồn tại. Vui lòng chọn tên khác.");
+				await _dialogService.ShowInfoAsync("Thông báo",$"Nhà cung cấp '{Supplier.SupplierName}' đã tồn tại. Vui lòng chọn tên khác.");
 				return;
 			}
 			if (string.IsNullOrWhiteSpace(Supplier.SupplierPhone))

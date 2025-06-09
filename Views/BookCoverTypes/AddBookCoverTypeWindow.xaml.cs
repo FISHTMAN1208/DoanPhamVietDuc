@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -18,10 +18,10 @@ using System.Windows.Shapes;
 
 namespace DoanPhamVietDuc.Views.BookCoverTypes
 {
-	/// <summary>
-	/// Interaction logic for AddBookCoverTypeWindow.xaml
-	/// </summary>
-	public partial class AddBookCoverTypeWindow : Window
+    /// <summary>
+    /// Interaction logic for AddBookCoverTypeWindow.xaml
+    /// </summary>
+    public partial class AddBookCoverTypeWindow : Window
 	{
 		public readonly AddBookCoverTypeViewModel _viewmodel;
 		public BookCoverType NewBookCoverType { get; private set; }

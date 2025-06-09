@@ -41,9 +41,10 @@ namespace DoanPhamVietDuc.Models
 
 		[Required]
 		[MaxLength(20)]
-		public string Status { get; set; } 
+		public string Status { get; set; }
 
 		// Navigation properties
+		public virtual ICollection<Account> Accounts { get; set; }
 		public virtual ICollection<Import> Imports { get; set; }
 		public virtual ICollection<Invoice> Invoices { get; set; }
 	}

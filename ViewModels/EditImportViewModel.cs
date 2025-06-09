@@ -1,5 +1,4 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Views.Imports;
@@ -9,10 +8,11 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditImportViewModel : BaseViewModel
+    public class EditImportViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -51,7 +51,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 			_originalImport = import;
 
-			// Tạo bản sao của import để tránh thay đổi đối tượng gốc
 			Import = new Import
 			{
 				ImportID = import.ImportID,

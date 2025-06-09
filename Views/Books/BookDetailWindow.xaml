@@ -7,18 +7,98 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Chi tiết sách" 
-        Height="650" 
-        Width="800"
+        Height="auto" 
+        Width="auto"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        Background="#F8FAFC">
 
-    <Grid Margin="0,0,35,0">
+    <Window.Resources>
+        <!-- Primary Gradient -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- GroupBox Style -->
+        <Style x:Key="ModernGroupBox" TargetType="GroupBox">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" 
+                                    Background="{StaticResource PrimaryGradient}" 
+                                    CornerRadius="8,8,0,0"
+                                    Padding="16,12">
+                                <DockPanel>
+                                    <ContentPresenter ContentSource="Header" 
+                                                    TextElement.FontWeight="Bold"
+                                                    TextElement.FontSize="16"
+                                                    TextElement.Foreground="White"
+                                                    VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Grid.Row="1" 
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="0,0,8,8"
+                                    Padding="{TemplateBinding Padding}">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#00000020" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                                </Border.Effect>
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Button Styles -->
+        <Style x:Key="ModernCloseButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DC2626"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#B91C1C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -26,11 +106,11 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1E293B" Padding="15" Margin="0,0,-35,0">
+        <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,10" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="BookOpen" Width="32" Height="32" Foreground="White"/>
-                    <TextBlock Text="CHI TIẾT SÁCH" FontSize="22" FontWeight="Bold" Foreground="White" Margin="15,0,0,0"/>
+                    <materialDesign:PackIcon Kind="BookOpen" Width="40" Height="40" Foreground="White"/>
+                    <TextBlock Text="CHI TIẾT SÁCH" FontSize="20" FontWeight="Bold" Foreground="White" Margin="12,6,0,0"/>
                 </StackPanel>
             </DockPanel>
         </Border>
@@ -49,10 +129,8 @@
                         <Image Source="{Binding ImageUrl}" Stretch="Uniform" Margin="10"/>
                     </Border>
 
-                    <Border Background="#F1F5F9" CornerRadius="5" Padding="15" Margin="0,10,0,0">
+                    <GroupBox Grid.Row="1" Header="Thông tin cơ bản" Style="{StaticResource ModernGroupBox}">
                         <StackPanel>
-                            <TextBlock Text="THÔNG TIN CƠ BẢN" FontWeight="Bold" Margin="0,0,0,10"/>
-
                             <Grid Margin="0,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -98,7 +176,7 @@
                                 <TextBlock Text="{Binding Quantity}" Grid.Column="1" Margin="5,0,0,0"/>
                             </Grid>
                         </StackPanel>
-                    </Border>
+                    </GroupBox>
                 </StackPanel>
 
                 <!-- Book Details -->
@@ -203,12 +281,10 @@
         <!-- Footer with buttons -->
         <Grid Grid.Row="2" Background="#F8FAFC" Margin="10 10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Đóng"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="#64748B"
-                        Foreground="White"
-                        Width="100"
-                        Height="36" Click="Button_Click"/>
+                <Button Content="❌ Đóng"
+                        Style="{StaticResource ModernCloseButton}"
+                        Width="120"
+                        Click="Button_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

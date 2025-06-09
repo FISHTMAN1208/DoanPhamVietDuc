@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 
 namespace DoanPhamVietDuc.Views.Categories
 {
-	public partial class EditCategoryWindow : Window
+    public partial class EditCategoryWindow : Window
 	{
 		private readonly EditCategoryViewModel _viewModel;
 		public Category UpdatedCategory { get; private set; }

@@ -1,0 +1,345 @@
+﻿<Window x:Class="DoanPhamVietDuc.Views.Staffs.EditStaffWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:DoanPhamVietDuc.Views.Staffs"
+        mc:Ignorable="d"
+        Height="auto" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Window.Resources>
+        <!-- Primary Gradient -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- TextBox Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:HintAssist.HintOpacity" Value="0.5"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#4F46E5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DatePicker Style -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}">
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:HintAssist.HintOpacity" Value="0.5"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#4F46E5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:HintAssist.HintOpacity" Value="0.5"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="#4F46E5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Button Styles -->
+        <Style x:Key="ModernPrimaryButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#075B5E"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0A6B70"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#065458"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernDangerButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#FF3F33"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E6362B"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#CC2E23"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- GroupBox Style -->
+        <Style x:Key="ModernGroupBox" TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" 
+                                        Background="{StaticResource PrimaryGradient}" 
+                                        Padding="12,8" 
+                                        CornerRadius="8,8,0,0">
+                                    <TextBlock Text="{TemplateBinding Header}" 
+                                               FontWeight="Medium" 
+                                               FontSize="16" 
+                                               Foreground="White"/>
+                                </Border>
+                                <ContentPresenter Grid.Row="1" 
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource PrimaryGradient}" 
+                CornerRadius="8" 
+                Padding="16,12" 
+                Margin="0,0,0,24">
+            <DockPanel LastChildFill="True">
+                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                        Width="50" 
+                        Height="50" 
+                        VerticalAlignment="Center"/>
+                <TextBlock Text="CẬP NHẬT NHÂN VIÊN" 
+                           FontSize="18" 
+                           FontWeight="SemiBold" 
+                           Foreground="White" 
+                           VerticalAlignment="Center"
+                           Margin="10 0 0 0"/>
+            </DockPanel>
+        </Border>
+
+
+        <!-- Form Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Thông tin cơ bản -->
+                <GroupBox Style="{StaticResource ModernGroupBox}"
+                          Header="Thông tin cơ bản">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Full Name -->
+                        <TextBlock Grid.Row="0" Grid.ColumnSpan="3"
+                                   Text="Họ và tên" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox Grid.Row="0" Grid.ColumnSpan="3"
+                                 Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding Staff.FullName}"
+                                 Margin="0,24,0,0"/>
+
+                        <!-- Phone -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="Số điện thoại" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox Grid.Row="2" Grid.Column="0"
+                                 Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding Staff.Phone}"
+                                 Margin="0,24,0,0"/>
+
+                        <!-- Email -->
+                        <TextBlock Grid.Row="2" Grid.Column="2"
+                                   Text="Email" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox Grid.Row="2" Grid.Column="2"
+                                 Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding Staff.Email}"
+                                 Margin="0,24,0,0"/>
+
+                        <!-- Position -->
+                        <TextBlock Grid.Row="4" Grid.Column="0"
+                                   Text="Chức vụ" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox Grid.Row="4" Grid.Column="0"
+                                 Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding Staff.Position}"
+                                 Margin="0,24,0,0"/>
+
+                        <!-- Birth Date -->
+                        <TextBlock Grid.Row="4" Grid.Column="2"
+                                   Text="Ngày sinh" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <DatePicker Grid.Row="4" Grid.Column="2"
+                                    Style="{StaticResource ModernDatePicker}"
+                                    SelectedDate="{Binding Staff.BirthDate}"
+                                    Margin="0,24,0,0"/>
+
+                        <!-- Hire Date -->
+                        <TextBlock Grid.Row="6" Grid.Column="0"
+                                   Text="Ngày vào làm" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <DatePicker Grid.Row="6" Grid.Column="0"
+                                    Style="{StaticResource ModernDatePicker}"
+                                    SelectedDate="{Binding Staff.HireDate}"
+                                    Margin="0,24,0,0"/>
+
+                        <!-- Status -->
+                        <TextBlock Grid.Row="6" Grid.Column="2"
+                                   Text="Trạng thái" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <ComboBox Grid.Row="6" Grid.Column="2"
+                                  Style="{StaticResource ModernComboBox}"
+                                  ItemsSource="{Binding StatusOptions}"
+                                  SelectedItem="{Binding Staff.Status}"
+                                  Margin="0,24,0,0"/>
+
+                        <!-- Address -->
+                        <TextBlock Grid.Row="8" Grid.ColumnSpan="3"
+                                   Text="Địa chỉ" 
+                                   FontWeight="Medium" 
+                                   Margin="0,0,0,8"/>
+                        <TextBox Grid.Row="8" Grid.ColumnSpan="3"
+                                 Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding Staff.Address}"
+                                 Margin="0,24,0,0"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer with buttons -->
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="White" Padding="30,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="❌ Hủy bỏ"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource ModernDangerButton}"
+                        Width="130"
+                        Margin="0,0,20,0"/>
+
+                <Button Content="✅ Cập nhật"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource ModernPrimaryButton}"
+                        Width="130"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

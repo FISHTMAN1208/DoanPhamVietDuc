@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Languages;
 using System;
@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class LanguageListViewModel : BaseViewModel
+    public class LanguageListViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -32,10 +32,24 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _selectedLanguage, value);
 		}
 
+		private string _searchText;
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if(SetProperty(ref _searchText, value))
+				{
+					SearchLanguageCommand.Execute(SearchText);
+				}	
+			}
+		}
+
 		public ICommand LoadLanguagesCommand { get; }
 		public ICommand AddLanguageCommand { get; }
 		public ICommand EditLanguageCommand { get; }
 		public ICommand DeleteLanguageCommand { get; }
+		public ICommand SearchLanguageCommand { get; }
 		public ICommand RefreshCommand { get; }
 		public ICommand LanguagesCommand { get; }
 
@@ -50,6 +64,8 @@ namespace DoanPhamVietDuc.ViewModels
 
 			LoadLanguagesCommand = new AsyncRelayCommand(async _ => await LoadLanguagesAsync());
 
+			SearchLanguageCommand = new AsyncRelayCommand(async _ => await SearchLanguagesAsync());
+
 			RefreshCommand = new AsyncRelayCommand(async _ => await LoadLanguagesAsync());
 
 			AddLanguageCommand = new RelayCommand(_ => AddLanguageAsync());
@@ -62,7 +78,19 @@ namespace DoanPhamVietDuc.ViewModels
 				async param => await DeleteLanguageAsync(param as Language ?? SelectedLanguage),
 				_ => SelectedLanguage != null);
 
-			Task.Run(() => LoadLanguagesAsync());
+			_ = InitializeAsync();
+		}
+
+		private async Task InitializeAsync()
+		{
+			try
+			{
+				await LoadLanguagesAsync().ConfigureAwait(true);
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể khởi tạo: {ex.Message}");
+			}
 		}
 
 		public async Task LoadLanguagesAsync()
@@ -175,6 +203,36 @@ namespace DoanPhamVietDuc.ViewModels
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", $"Lỗi khi xóa ngôn ngữ: {ex.Message}");
 				}
+			}
+		}
+
+		private async Task SearchLanguagesAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchText))
+			{
+				await LoadLanguagesAsync();
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				var languages = await _dataService.SearchLanguagesAsync(SearchText);
+				Languages.Clear();
+
+				foreach (var language in languages)
+				{
+					Languages.Add(language);
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tìm kiếm dữ liệu: {ex.Message}");
+				return;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 	}

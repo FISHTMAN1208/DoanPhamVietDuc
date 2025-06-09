@@ -9,13 +9,18 @@
         xmlns:languagesviews="clr-namespace:DoanPhamVietDuc.Views.Languages"
         xmlns:bookcovertypesview="clr-namespace:DoanPhamVietDuc.Views.BookCoverTypes"
         xmlns:importsviews="clr-namespace:DoanPhamVietDuc.Views.Imports"
+        xmlns:invoicesviews="clr-namespace:DoanPhamVietDuc.Views.Invoices"
+        xmlns:staffsviews="clr-namespace:DoanPhamVietDuc.Views.Staffs"
+        xmlns:accountsviews="clr-namespace:DoanPhamVietDuc.Views.Accounts"
+        xmlns:staticsviews="clr-namespace:DoanPhamVietDuc.Views.Revenues"
         xmlns:local="clr-namespace:DoanPhamVietDuc"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewmodels="clr-namespace:DoanPhamVietDuc.ViewModels"
+        WindowState="Maximized"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="1000" 
-        Width="1000"
+        Width="1500"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -25,28 +30,77 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
     <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Header với thông tin user -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                Background="{StaticResource PrimaryGradient}" CornerRadius="10" Padding="15" Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Account" Foreground="White" Width="24" Height="24" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding UserDisplayName}" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding UserRole, StringFormat=' ({0})'}" Foreground="LightGray" FontSize="14" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Foreground="White" 
+                            Command="{Binding ShowProfileCommand}"
+                            ToolTip="Thông tin cá nhân">
+                        <materialDesign:PackIcon Kind="AccountSettings" Width="25" Height="25"/>
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Foreground="White" 
+                            Command="{Binding LogoutCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                            ToolTip="Đăng xuất">
+                        <materialDesign:PackIcon Kind="Logout" Width="25" Height="25"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
         <!-- Sidebar -->
-        <Border Background="#1E293B" CornerRadius="0 10 10 0" Padding="10" Height="auto">
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource PrimaryGradient}" CornerRadius="0 10 10 0" Padding="10" Height="auto">
             <StackPanel>
                 <!-- Logo và tiêu đề -->
                 <StackPanel Margin="0 20 0 30" HorizontalAlignment="Center">
-                    <!--<Image Source="/Images/Icons/Bia.png" Width="80" Height="80" Margin="0 0 0 20"/>-->
+                    <Image Source="/Images/FolderImages/addbook.png"
+                                Width="80" 
+                                Height="80" 
+                                VerticalAlignment="Center"/>
                     <TextBlock Text="CHẺM BOOK" FontSize="24" FontWeight="Bold" Foreground="White" TextAlignment="Center"/>
                 </StackPanel>
 
-                <!-- Menu -->
+                <!-- Menu với visibility binding theo permissions -->
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                        Foreground="White" 
-                        Margin="5 10" 
-                        Height="50" 
-                        HorizontalContentAlignment="Left"
-                        Command="{Binding NavigateToBookListCommand}">
+                            Foreground="White" 
+                            Margin="5 10" 
+                            Height="50" 
+                            HorizontalContentAlignment="Left"
+                            Command="{Binding NavigateToBookListCommand}"
+                            Visibility="{Binding CanViewBooks, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="BookSearch" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý sách" FontSize="16" VerticalAlignment="Center"/>
@@ -54,47 +108,51 @@
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToCategoryManagerCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToCategoryManagerCommand}"
+                             Visibility="{Binding CanManageCategories, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FormatListBulletedSquare" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý thể loại" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToSupplierManagerCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToSupplierManagerCommand}"
+                             Visibility="{Binding CanManageSuppliers, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="TruckFast" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý nhà cung cấp" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToLanguageManagerCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToLanguageManagerCommand}"
+                             Visibility="{Binding CanManageLanguages, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="TruckFast" Width="24" Height="24" Margin="0 0 10 0"/>
+                        <materialDesign:PackIcon Kind="Translate" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý ngôn ngữ" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToBookCoverTypeManagerCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToBookCoverTypeManagerCommand}"
+                             Visibility="{Binding CanManageBookCoverTypes, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="BookOpenPageVariant" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý bìa sách" FontSize="16" VerticalAlignment="Center"/>
@@ -102,11 +160,12 @@
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                          Foreground="White" 
-                          Margin="5 10" 
-                          Height="50" 
-                          HorizontalContentAlignment="Left"
-                          Command="{Binding NavigateToImportManagerCommand}">
+                              Foreground="White" 
+                              Margin="5 10" 
+                              Height="50" 
+                              HorizontalContentAlignment="Left"
+                              Command="{Binding NavigateToImportManagerCommand}"
+                              Visibility="{Binding CanViewImports, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Store" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý nhập hàng" FontSize="16" VerticalAlignment="Center"/>
@@ -114,79 +173,102 @@
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToInvoiceManagerCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToInvoiceManagerCommand}"
+                             Visibility="{Binding CanViewInvoices, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="BookOpenPageVariant" Width="24" Height="24" Margin="0 0 10 0"/>
+                        <materialDesign:PackIcon Kind="Receipt" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Quản lý hóa đơn" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToStatisticsCommand}">
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToStatisticsCommand}"
+                             Visibility="{Binding CanViewReports, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Store" Width="24" Height="24" Margin="0 0 10 0"/>
+                        <materialDesign:PackIcon Kind="ChartLine" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Thống kê" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToEmployeeManagerCommand}">  
+                             Foreground="White" 
+                             Margin="5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToStaffManagerCommand}"
+                             Visibility="{Binding CanManageStaff, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Human" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Nhân viên" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                
+
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                         Foreground="White" 
-                         Margin="5 50 5 10" 
-                         Height="50" 
-                         HorizontalContentAlignment="Left"
-                         Command="{Binding NavigateToAccountManagerCommand}">   
+                             Foreground="White" 
+                             Margin="5 50 5 10" 
+                             Height="50" 
+                             HorizontalContentAlignment="Left"
+                             Command="{Binding NavigateToAccountManagerCommand}"
+                             Visibility="{Binding CanManageAccounts, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountConvert" Width="24" Height="24" Margin="0 0 10 0"/>
                         <TextBlock Text="Tài khoản" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-
-                <!-- Thêm các button khác tại đây nếu cần -->
-
             </StackPanel>
         </Border>
 
         <!-- Main Content -->
-        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="0,0,0,5">
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="0,0,0,5">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:BookListViewModel}">
                     <booksviews:BookListView />
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type viewmodels:CategoryListViewModel}">
                     <categoriesviews:CategoryListView />
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type viewmodels:SupplierListViewModel}">
                     <suppliersviews:SupplierListView />
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type viewmodels:LanguageListViewModel}">
                     <languagesviews:LanguageListView />
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type viewmodels:BookCoverTypeListViewModel}">
                     <bookcovertypesview:BookCoverTypeListView/>
                 </DataTemplate>
+                
                 <DataTemplate DataType="{x:Type viewmodels:ImportListViewModel}">
                     <importsviews:ImportListView />
                 </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type viewmodels:StaffListViewModel}">
+                    <staffsviews:StaffListView/>
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type viewmodels:InvoiceListViewModel}">
+                    <invoicesviews:InvoiceListView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:RevenueByCategoryViewModel}">
+                    <staticsviews:RevenueByCategoryView/>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:AccountListViewModel}">
+                    <accountsviews:AccountListView/>
+                </DataTemplate>
+                
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

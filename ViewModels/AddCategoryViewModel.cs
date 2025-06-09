@@ -8,12 +8,12 @@ using System.Windows;
 using System.Windows.Input;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class AddCategoryViewModel : BaseViewModel
+    public class AddCategoryViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;

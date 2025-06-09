@@ -26,5 +26,10 @@ namespace DoanPhamVietDuc.Views.Imports
 			InitializeComponent();
 			DataContext = import;
 		}
-	}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+        }
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Helpers.Commands;
 using System;
@@ -9,10 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditImportDetailsViewModel : BaseViewModel
+    public class EditImportDetailsViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -158,12 +158,11 @@ namespace DoanPhamVietDuc.ViewModels
 		{
 			try
 			{
-				// Lấy import đầy đủ từ database
+				// Lấy import từ database
 				var fullImport = await _dataService.GetImportByIdAsync(Import.ImportID);
 				if (fullImport == null || fullImport.ImportDetails == null)
 					return;
 
-				// Chuyển đổi từ ImportDetail sang ObservableImportDetail
 				ImportDetails.Clear();
 				foreach (var detail in fullImport.ImportDetails)
 				{

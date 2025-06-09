@@ -1,0 +1,344 @@
+﻿<Window x:Class="DoanPhamVietDuc.Views.Invoices.EditInvoiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Sửa hóa đơn" 
+        Height="638" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        Background="#F8FAFC">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Modern TextBox Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#1F2937"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:HintAssist.HintOpacity" Value="0.5"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modern DatePicker Style -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#A5B4FC"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#4F46E5"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- GroupBox Style -->
+        <Style x:Key="ModernGroupBox" TargetType="GroupBox">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" 
+                                    Background="{StaticResource PrimaryGradient}" 
+                                    CornerRadius="8,8,0,0"
+                                    Padding="16,12">
+                                <DockPanel>
+                                    <ContentPresenter ContentSource="Header" 
+                                                    TextElement.FontWeight="Bold"
+                                                    TextElement.FontSize="16"
+                                                    TextElement.Foreground="White"
+                                                    VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </Border>
+                            <Border Grid.Row="1" 
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="0,0,8,8"
+                                    Padding="{TemplateBinding Padding}">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#00000020" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                                </Border.Effect>
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Button Styles -->
+        <Style x:Key="ModernCancelButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DC2626"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#B91C1C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernSaveButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#059669"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#047857"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#065F46"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,15" Margin="0,0,0,20" CornerRadius="12">
+            <DockPanel LastChildFill="True">
+                <materialDesign:PackIcon Kind="FileDocumentEdit" Width="32" Height="32" Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock Text="SỬA THÔNG TIN HÓA ĐƠN" FontSize="22" FontWeight="Bold" Foreground="White" Margin="15,0,0,0" VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Thông tin hóa đơn -->
+        <GroupBox Grid.Row="1"
+                  Header="Thông tin hóa đơn"
+                  FontSize="16"
+                  FontWeight="Bold"
+                  Style="{StaticResource ModernGroupBox}"
+                  Margin="0,20,0,0">
+            <Grid Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Mã hóa đơn -->
+                <TextBox Grid.Row="0"
+                         Grid.Column="0"
+                         Style="{StaticResource ModernTextBox}"
+                         materialDesign:HintAssist.Hint="Mã hóa đơn"
+                         Text="{Binding Invoice.InvoiceID}"
+                         IsReadOnly="True"
+                         Margin="0,0,10,15"/>
+
+                <!-- Mã hiển thị -->
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Style="{StaticResource ModernTextBox}"
+                         materialDesign:HintAssist.Hint="Mã hiển thị"
+                         Text="{Binding Invoice.InvoiceCode}"
+                         Margin="0,0,0,15"/>
+
+                <!-- Khách hàng -->
+                <TextBox Grid.Row="1"
+                         Grid.Column="0"
+                         Style="{StaticResource ModernTextBox}"
+                         materialDesign:HintAssist.Hint="Tên khách hàng"
+                         Text="{Binding Invoice.CustomerName}"
+                         Margin="0,0,10,15"/>
+
+                <!-- Số điện thoại -->
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Style="{StaticResource ModernTextBox}"
+                         materialDesign:HintAssist.Hint="Số điện thoại"
+                         Text="{Binding Invoice.CustomerPhone}"
+                         Margin="0,0,0,15"/>
+
+                <!-- Ngày hóa đơn -->
+                <DatePicker Grid.Row="2"
+                            Grid.Column="0"
+                            Style="{StaticResource ModernDatePicker}"
+                            materialDesign:HintAssist.Hint="Ngày hóa đơn"
+                            SelectedDate="{Binding Invoice.InvoiceDate}"
+                            Margin="0,0,10,15"/>
+
+                <!-- Trạng thái -->
+                <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          Style="{StaticResource ModernComboBox}"
+                          materialDesign:HintAssist.Hint="Trạng thái"
+                          ItemsSource="{Binding StatusOptions}"
+                          SelectedValue="{Binding Invoice.Status}"
+                          Margin="0,0,0,15"/>
+
+                <!-- Nhân viên tạo -->
+                <ComboBox Grid.Row="3"
+                          Grid.Column="0"
+                          Style="{StaticResource ModernComboBox}"
+                          materialDesign:HintAssist.Hint="Nhân viên"
+                          ItemsSource="{Binding StaffList}"
+                          DisplayMemberPath="FullName"
+                          SelectedItem="{Binding SelectedStaff}"
+                          Margin="0,0,10,15"/>
+
+                <!-- Phương thức thanh toán -->
+                <ComboBox Grid.Row="3"
+                          Grid.Column="1"
+                          Style="{StaticResource ModernComboBox}"
+                          materialDesign:HintAssist.Hint="Phương thức thanh toán"
+                          ItemsSource="{Binding PaymentMethods}"
+                          SelectedItem="{Binding Invoice.PaymentMethod}"
+                          Margin="0,0,0,15"/>
+
+                <!-- Tổng tiền -->
+                <TextBox Grid.Row="4"
+                         Grid.Column="1"
+                         Style="{StaticResource ModernTextBox}"
+                         materialDesign:HintAssist.Hint="Tổng tiền (VNĐ)"
+                         Text="{Binding Invoice.TotalAmount, StringFormat='{}{0:N0}'}"
+                         IsReadOnly="True"
+                         Margin="0,0,0,15"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Chuyển sang sửa chi tiết -->
+            <Button Grid.Column="0"
+                    Content="Sửa chi tiết hóa đơn"
+                    Command="{Binding EditDetailsCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="#3B82F6"
+                    Foreground="White"
+                    Width="200"
+                    Height="40"
+                    HorizontalAlignment="Left"/>
+
+            <!-- Hủy -->
+            <Button Grid.Column="1"
+                    Content="Hủy bỏ"
+                    Command="{Binding CancelCommand}"
+                    Style="{StaticResource ModernCancelButton}"
+                    Width="120"
+                    Height="40"
+                    Margin="0,0,15,0"/>
+
+            <!-- Lưu -->
+            <Button Grid.Column="2"
+                    Content="Lưu thay đổi"
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource ModernSaveButton}"
+                    Width="150"
+                    Height="40"/>
+        </Grid>
+    </Grid>
+</Window>

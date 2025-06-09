@@ -12,16 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 
 namespace DoanPhamVietDuc.Views.Suppliers
 {
-	/// <summary>
-	/// Interaction logic for AddSupplierWindow.xaml
-	/// </summary>
-	public partial class AddSupplierWindow : Window
+    /// <summary>
+    /// Interaction logic for AddSupplierWindow.xaml
+    /// </summary>
+    public partial class AddSupplierWindow : Window
 	{
 		public readonly AddSupplierViewModel _viewmodel;
 		public Supplier NewSupplier { get; private set; }
@@ -35,5 +35,10 @@ namespace DoanPhamVietDuc.Views.Suppliers
 			};
 			DataContext = _viewmodel;
 		}
-	}
+
+		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+        }
+    }
 }

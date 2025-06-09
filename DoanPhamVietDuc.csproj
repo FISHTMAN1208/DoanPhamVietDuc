@@ -11,6 +11,9 @@
 	<ItemGroup>
 	  <None Remove="Images\chientranhtiente.jpg" />
 	  <None Remove="Images\defaultbook.jpg" />
+	  <None Remove="Images\FolderImages\addbook.png" />
+	  <None Remove="Images\FolderImages\addbook1-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\addbook1.png" />
 	  <None Remove="Images\mat-biec.jpg" />
 	  <None Remove="Images\toithayhoavangtrencoxanh.jpg" />
 	  <None Remove="Images\tuduymo.jpg" />
@@ -35,6 +38,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="iTextSharp" Version="5.5.13.2" />
+		<PackageReference Include="LiveChartsCore" Version="2.0.0-rc5.4" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc5.4" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc5.4" />
 		<PackageReference Include="MaterialDesignColors" Version="5.2.0" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
@@ -47,6 +54,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+		<PackageReference Include="SkiaSharp" Version="3.116.1" />
 
 	</ItemGroup>
 
@@ -57,7 +65,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Images\Books\" />
 	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Images\FolderImages\addbook.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\addbook1-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\addbook1.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -23,13 +23,17 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Book" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
-                    <TextBlock Text="QUẢN LÝ THỂ LOẠI" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                           Width="60" 
+                           Height="60" 
+                           Margin="20 0"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Text="QUẢN LÝ THỂ LOẠI" FontSize="24" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="Thêm thể loại" 
+                    <Button Content="➕ Thêm thể loại" 
                             Width="140" 
                             Height="36" 
                             Command="{Binding AddCategoryCommand}" 
@@ -37,24 +41,16 @@
                             Background="#1E293B"
                             Foreground="White"
                             Margin="0 0 20 0"/>
- 
-                   
-                    <Button Content="Xuất PDF"
-                            Width="140" 
-                            Height="36"
-                            Command="{Binding ExportPDFCategoryCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Background="#10B981"
-                            Foreground="White"
-                            Margin="0 0 20 0"/>
 
-                    <TextBox Width="250" 
+                    <TextBox Width="350" 
                              Height="50" 
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                              Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                              materialDesign:HintAssist.Hint="Tìm kiếm..."
+                             materialDesign:HintAssist.Foreground="Black"
+                             Background="White"
                              Margin="20 0 20 0"/>
-                    <Button Content="Làm mới" Width="130" Height="36" Command="{Binding RefreshCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Background="#3B82F6" Foreground="White"/>
+                    <Button Content="🔄 Làm mới" Width="130" Height="36" Command="{Binding RefreshCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Background="#3B82F6" Foreground="White"/>
                 </StackPanel>
             </Grid>
         </Border>

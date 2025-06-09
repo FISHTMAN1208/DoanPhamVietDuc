@@ -8,15 +8,16 @@ using System.Transactions;
 using System.Windows.Input;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Books;
 using DoanPhamVietDuc.Views.Categories;
+using static System.Reflection.Metadata.BlobBuilder;
 
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class CategoryListViewModel : BaseViewModel
+    public class CategoryListViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -35,10 +36,24 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty( ref _selectedCategory, value);
 		}
 
+		private string _searchText;
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if (SetProperty(ref _searchText, value))
+				{
+					SearchCategoryCommand.Execute(null);
+				}
+			}
+		}
+
 		public ICommand LoadCategoriesCommand { get; }
 		public ICommand AddCategoryCommand { get; }
 		public ICommand EditCategoryCommand { get; }
 		public ICommand DeleteCategoryCommand { get; }
+		public ICommand SearchCategoryCommand { get; }	
 		public ICommand RefreshCommand { get; }
 
 		public CategoryListViewModel(IDataService dataService, IDialogService dialogService)
@@ -64,7 +79,20 @@ namespace DoanPhamVietDuc.ViewModels
 				async param => await DeleteCategoryAsync(param as Category ?? SelectedCategory),
 				_ => SelectedCategory != null);
 
-			Task.Run(() => LoadCategoriesAsync());
+			SearchCategoryCommand = new AsyncRelayCommand(async _ => await SearchCategoryAsync());
+
+			_ = InitializeAsync();
+		}
+		private async Task InitializeAsync()
+		{
+			try
+			{
+				await LoadCategoriesAsync().ConfigureAwait(true);
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể khởi tạo: {ex.Message}");
+			}
 		}
 
 		public async Task LoadCategoriesAsync()
@@ -177,6 +205,36 @@ namespace DoanPhamVietDuc.ViewModels
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", $"Lỗi khi xóa danh mục: {ex.Message}");
 				}
+			}
+		}
+
+		private async Task SearchCategoryAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchText))
+			{
+				await LoadCategoriesAsync();
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				var categories = await _dataService.SearchCategoriesAsync(SearchText);
+				Categories.Clear();
+
+				foreach (var category in categories)
+				{
+					Categories.Add(category);
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tìm kiếm dữ liệu: {ex.Message}");
+				return;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 

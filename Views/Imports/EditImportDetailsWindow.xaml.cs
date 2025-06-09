@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -9,10 +9,10 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.Views.Imports
 {
-	/// <summary>
-	/// Interaction logic for EditImportDetailsWindow.xaml
-	/// </summary>
-	public partial class EditImportDetailsWindow : Window
+    /// <summary>
+    /// Interaction logic for EditImportDetailsWindow.xaml
+    /// </summary>
+    public partial class EditImportDetailsWindow : Window
 	{
 		private readonly EditImportDetailsViewModel _viewModel;
 		public Import UpdatedImport { get; private set; }
@@ -33,13 +33,5 @@ namespace DoanPhamVietDuc.Views.Imports
 				await _viewModel.LoadDataAsync();
 			};
 		}
-
-		private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-			if (sender is DataGrid dataGrid && dataGrid.SelectedItem is ObservableImportDetail selectedDetail)
-			{
-				_viewModel.EditDetailCommand.Execute(selectedDetail);
-			}
-		}
-	}
+    }
 }

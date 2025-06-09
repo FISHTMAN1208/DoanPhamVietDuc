@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Imports;
 using System;
@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class ImportListViewModel : BaseViewModel
+    public class ImportListViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -68,9 +68,11 @@ namespace DoanPhamVietDuc.ViewModels
 			EditImportCommand = new AsyncRelayCommand(
 				async param => await EditImportAsync(param as Import ?? SelectedImport),
 				_ => SelectedImport != null && SelectedImport.ImportStatus != "Đã nhập");
+
 			DeleteImportCommand = new AsyncRelayCommand(
 				async param => await DeleteImportAsync(param as Import ?? SelectedImport),
 				_ => SelectedImport != null && SelectedImport.ImportStatus != "Đã nhập");
+
 			ViewDetailCommand = new RelayCommand(
 				_ => ViewImportDetail(),
 				_ => SelectedImport != null);

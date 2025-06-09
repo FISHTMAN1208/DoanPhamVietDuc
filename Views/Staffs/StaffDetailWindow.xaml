@@ -1,0 +1,229 @@
+﻿<Window x:Class="DoanPhamVietDuc.Views.Staffs.StaffDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:DoanPhamVietDuc.Views.Staffs"
+        mc:Ignorable="d" 
+        Height="auto" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontSize="13"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <Window.Resources>
+        <!-- Primary Gradient -->
+        <LinearGradientBrush x:Key="PrimaryGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1E293B" Offset="0"/>
+            <GradientStop Color="#764BA2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Modern Card Style -->
+        <Style x:Key="ModernCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#00000020" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernCloseButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Background" Value="#6B7280"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4B5563"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#374151"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Status Badge Style -->
+        <Style x:Key="StatusBadge" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Background" Value="#10B981"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header với gradient -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource PrimaryGradient}" 
+                CornerRadius="8" 
+                Padding="16,12"
+                Margin="20 20 ">
+            <DockPanel LastChildFill="True">
+                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                        Width="50" 
+                        Height="50" 
+                        VerticalAlignment="Center"/>
+                <TextBlock Text="XEM CHI TIẾT NHÂN VIÊN" 
+                           FontSize="18" 
+                           FontWeight="SemiBold" 
+                           Foreground="White" 
+                           VerticalAlignment="Center"
+                           Margin="10 0 0 0"/>
+            </DockPanel>
+        </Border>
+
+
+        <!-- Main Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="24">
+            <StackPanel>
+                <!-- Avatar và thông tin cơ bản -->
+                <Border Style="{StaticResource ModernCard}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Border Grid.Column="0" Width="120" Height="120" CornerRadius="60" 
+                                Background="#F3F4F6" Margin="0,0,24,0" BorderBrush="#E5E7EB" BorderThickness="2">
+                            <materialDesign:PackIcon Kind="Account" Width="60" Height="60" 
+                                                   Foreground="#9CA3AF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <!-- Thông tin cơ bản -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Staff.FullName}" FontSize="28" FontWeight="Bold" Foreground="#1E293B"/>
+                            <TextBlock Text="{Binding Staff.Position}" FontSize="18" Foreground="#6B7280" Margin="0,6,0,0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <Border Style="{StaticResource StatusBadge}">
+                                    <TextBlock Text="{Binding Staff.Status}" FontSize="13" FontWeight="SemiBold" 
+                                             Foreground="White"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Thông tin chi tiết -->
+                <Border Style="{StaticResource ModernCard}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Header với gradient -->
+                        <Border Grid.Row="0" Grid.ColumnSpan="2" 
+                                Background="{StaticResource PrimaryGradient}" 
+                                Padding="16,12" 
+                                CornerRadius="8"
+                                Margin="0,0,0,24">
+                            <TextBlock Text="Thông tin chi tiết" 
+                                      FontSize="18" FontWeight="Bold" Foreground="White"/>
+                        </Border>
+
+                        <!-- Mã nhân viên -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,12,20">
+                            <TextBlock Text="Mã nhân viên:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding StaffID}" FontSize="14" Foreground="#1E293B"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Email -->
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="12,0,0,20">
+                            <TextBlock Text="Email:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding Email}" FontSize="14" Foreground="#1E293B"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Số điện thoại -->
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,12,20">
+                            <TextBlock Text="Số điện thoại:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding Phone}" FontSize="14" Foreground="#1E293B"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Ngày sinh -->
+                        <StackPanel Grid.Row="2" Grid.Column="1" Margin="12,0,0,20">
+                            <TextBlock Text="Ngày sinh:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding BirthDate, StringFormat='{}{0:dd/MM/yyyy}'}" 
+                                         FontSize="14" Foreground="#1E293B"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Ngày vào làm -->
+                        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,12,20">
+                            <TextBlock Text="Ngày vào làm:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding HireDate, StringFormat='{}{0:dd/MM/yyyy}'}" 
+                                         FontSize="14" Foreground="#1E293B"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Địa chỉ -->
+                        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,0">
+                            <TextBlock Text="Địa chỉ:" FontSize="13" FontWeight="SemiBold" Foreground="#6B7280"/>
+                            <Border Background="#F8FAFC" CornerRadius="6" Padding="12,8" Margin="0,4,0,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                                <TextBlock Text="{Binding Address}" FontSize="14" Foreground="#1E293B" 
+                                         TextWrapping="Wrap"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#F1F5F9" Padding="24,16" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Đóng"
+                        Command="{Binding CloseCommand}"
+                        Style="{StaticResource ModernCloseButton}"
+                        Width="120"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

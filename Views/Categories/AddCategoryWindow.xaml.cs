@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DoanPhamVietDuc.Views.Categories
 {
-	public partial class AddCategoryWindow : Window
+    public partial class AddCategoryWindow : Window
 	{
 		public readonly AddCategoryViewModel _viewmodel;
 		public Category NewCategory { get; private set; }

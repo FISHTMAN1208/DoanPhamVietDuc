@@ -1,5 +1,5 @@
 ﻿using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.ViewModels;
 using System;
@@ -18,10 +18,10 @@ using System.Windows.Shapes;
 
 namespace DoanPhamVietDuc.Views.Languages
 {
-	/// <summary>
-	/// Interaction logic for EditLanguageWindow.xaml
-	/// </summary>
-	public partial class EditLanguageWindow : Window
+    /// <summary>
+    /// Interaction logic for EditLanguageWindow.xaml
+    /// </summary>
+    public partial class EditLanguageWindow : Window
 	{
 		private readonly EditLanguageViewModel _viewModel;
 		public Language UpdatedLanguage { get; private set; }

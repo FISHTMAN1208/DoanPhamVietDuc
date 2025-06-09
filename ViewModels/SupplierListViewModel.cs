@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Books;
+using DoanPhamVietDuc.Views.Staffs;
 using DoanPhamVietDuc.Views.Suppliers;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class SupplierListViewModel : BaseViewModel
+    public class SupplierListViewModel : BaseViewModel
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
@@ -34,10 +35,25 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _selectedSupplier, value);
 		}
 
+		private string _searchText;
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if(SetProperty(ref _searchText, value))
+				{
+					SearchSupplierCommand.Execute(value);
+				}	
+			}
+		}
+
 		public ICommand LoadSuppliersCommand { get; }
 		public ICommand AddSupplierCommand { get; }
+		public ICommand ViewDetailCommand { get; }
 		public ICommand EditSupplierCommand { get; }
 		public ICommand DeleteSupplierCommand { get; }
+		public ICommand SearchSupplierCommand { get; }
 		public ICommand RefreshCommand { get; }
 
 		public SupplierListViewModel(IDataService dataService, IDialogService dialogService)
@@ -49,7 +65,11 @@ namespace DoanPhamVietDuc.ViewModels
 
 			LoadSuppliersCommand = new AsyncRelayCommand(async _ => await LoadSuppliersAsync());
 
+			SearchSupplierCommand = new AsyncRelayCommand(async _ => await SearchSuppliersAsync());
+
 			RefreshCommand = new AsyncRelayCommand(async _ => await LoadSuppliersAsync());
+
+			ViewDetailCommand = new RelayCommand(_ => ViewSupplierDetail(), _ => SelectedSupplier != null);
 
 			AddSupplierCommand = new RelayCommand(_ => AddSupplierAsync());
 
@@ -59,7 +79,19 @@ namespace DoanPhamVietDuc.ViewModels
 			DeleteSupplierCommand = new AsyncRelayCommand(
 				async param => await DeleteSupplierAsync(param as Supplier ?? SelectedSupplier), _ => SelectedSupplier != null);
 
-			Task.Run(() => LoadSuppliersAsync());
+			_ = InitializeAsync();
+		}
+
+		private async Task InitializeAsync()
+		{
+			try
+			{
+				await LoadSuppliersAsync().ConfigureAwait(true);
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể khởi tạo: {ex.Message}");
+			}
 		}
 
 		public async Task LoadSuppliersAsync()
@@ -90,6 +122,15 @@ namespace DoanPhamVietDuc.ViewModels
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		private void ViewSupplierDetail()
+		{
+			if (SelectedSupplier != null)
+			{
+				SupplierDetailWindow detailWindow = new SupplierDetailWindow(SelectedSupplier);
+				detailWindow.ShowDialog();
 			}
 		}
 
@@ -167,6 +208,36 @@ namespace DoanPhamVietDuc.ViewModels
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", $"Lỗi khi xóa thể loại: {ex.Message}");
 				}
+			}
+		}
+
+		private async Task SearchSuppliersAsync()
+		{
+			if (string.IsNullOrWhiteSpace(SearchText))
+			{
+				await LoadSuppliersAsync();
+				return;
+			}
+
+			try
+			{
+				IsBusy = true;
+				var suppliers = await _dataService.SearchSuppliersAsync(SearchText);
+				Suppliers.Clear();
+
+				foreach (var supplier in suppliers)
+				{
+					Suppliers.Add(supplier);
+				}
+			}
+			catch (Exception ex)
+			{
+				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tìm kiếm dữ liệu: {ex.Message}");
+				return;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 	}

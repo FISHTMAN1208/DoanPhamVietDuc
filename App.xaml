@@ -10,13 +10,18 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <!-- Custom Resources -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Custom Converters -->
-            <converters:BoolToVisConverter x:Key="BoolToVisConverter" />
-            <converters:BooleanToStringConverter x:Key="BooleanToStringConverter" />
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converters:BooleanToStringConverter x:Key="BooleanToStringConverter"/>
+            <converters:IndexConverter x:Key="IndexConverter"/>
+            <converters:RoleColorConverter x:Key="RoleColorConverter"/>
+            <converters:StatusColorConverter x:Key="StatusColorConverter"/>
+            <converters:RoleIconConverter x:Key="RoleIconConverter"/>
+            <converters:BoolToActivityConverter x:Key="BoolToActivityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

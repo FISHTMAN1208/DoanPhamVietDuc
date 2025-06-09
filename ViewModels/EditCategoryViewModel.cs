@@ -1,6 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
-using DoanPhamVietDuc.Services.DataService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using System;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace DoanPhamVietDuc.ViewModels
 {
-	public class EditCategoryViewModel : BaseViewModel
+    public class EditCategoryViewModel : BaseViewModel
 	{
 		private readonly IDialogService _dialogService;
 		private readonly IDataService _dataService;
