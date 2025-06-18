@@ -91,6 +91,8 @@ namespace DoanPhamVietDuc.Services.AuthenticationService.DataService
 		Task<List<Account>> SearchAccountsAsync(string searchText);
 		Task<bool> UpdateLastLoginAsync(int accountID);
 		Task<bool> IsUsernameExistsAsync(string username, int? excludeId = null);
+		Task<bool> VerifyPasswordAsync(string username, string currentPassword);
+		Task<bool> UpdatePasswordAsync(string username, string newPassword);
 
 		// ===== STAFF =====
 		Task<List<Staff>> GetAllStaffsAsync();

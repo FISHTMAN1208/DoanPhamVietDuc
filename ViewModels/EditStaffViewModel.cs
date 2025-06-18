@@ -38,6 +38,13 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _imports, value);
 		}
 
+		private ObservableCollection<string> _statusOptions;
+		public ObservableCollection<string> StatusOptions
+		{
+			get => _statusOptions;
+			set => SetProperty(ref _statusOptions, value);
+		}
+
 		private ObservableCollection<Invoice> _invoices;
 		public ObservableCollection<Invoice> Invoices
 		{
@@ -72,6 +79,7 @@ namespace DoanPhamVietDuc.ViewModels
 			};
 			Title = "Sửa nhân viên";
 			SaveCommand = new AsyncRelayCommand(async _ => await SaveStaffAsync());
+			StatusOptions = new ObservableCollection<string> { "Đang làm", "Nghỉ việc" };
 			CancelCommand = new RelayCommand(_ => CancelAndClose());
 
 			//Colections

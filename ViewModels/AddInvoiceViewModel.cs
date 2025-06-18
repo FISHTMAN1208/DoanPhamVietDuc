@@ -84,9 +84,9 @@ namespace DoanPhamVietDuc.ViewModels
 			InvoiceDetails = new ObservableCollection<ObservableInvoiceDetail>();
 			ResetCurrentDetail();
 
-			AddDetailCommand = new RelayCommand(_ => AddDetail(), _ => CanAddDetail());
+			AddDetailCommand = new RelayCommand(_ => AddDetail());
 			DeleteDetailCommand = new RelayCommand(detail => RemoveDetail(detail as ObservableInvoiceDetail));
-			SaveCommand = new AsyncRelayCommand(async _ => await SaveInvoiceAsync(), _ => CanSaveInvoice());
+			SaveCommand = new AsyncRelayCommand(async _ => await SaveInvoiceAsync());
 			CancelCommand = new RelayCommand(_ => CancelAndClose());
 
 			Task.Run(() => LoadReferenceDataAsync());
@@ -125,25 +125,25 @@ namespace DoanPhamVietDuc.ViewModels
 		{
 			if(CurrentDetail.BookID <= 0)
 			{
-				_dialogService.ShowInfoAsync("Thông báo", "Vui lòng chọn sách");
+				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng chọn sách");
 				return;
 			}	
 
 			if(CurrentDetail.Quantity <= 0)
 			{
-				_dialogService.ShowInfoAsync("Thông báo", "Số lượng phải lớn hơn 0");
+				await _dialogService.ShowInfoAsync("Thông báo", "Số lượng phải lớn hơn 0");
 				return;
 			}	
 			if(CurrentDetail.UnitPrice <= 0)
 			{
-				_dialogService.ShowInfoAsync("Thông báo", "Không tìm thấy sách đã chọn");
+				await _dialogService.ShowInfoAsync("Thông báo", "Không tìm thấy sách đã chọn");
 			}	
 
 			//Tìm sách
 			var book = Books.FirstOrDefault(b => b.ID == CurrentDetail.BookID);
 			if(book == null)
 			{
-				_dialogService.ShowInfoAsync("Lỗi", "Không tìm thấy sách đã chọn");
+				await _dialogService.ShowInfoAsync("Lỗi", "Không tìm thấy sách đã chọn");
 				return;
 			}
 
@@ -182,12 +182,12 @@ namespace DoanPhamVietDuc.ViewModels
 			TotalAmount = InvoiceDetails.Sum(d => d.Subtotal);
 		}
 
-		private bool CanAddDetail()
-		{
-			return CurrentDetail?.BookID > 0 &&
-				   CurrentDetail.Quantity > 0 &&
-				   CurrentDetail.UnitPrice > 0;
-		}
+		//private bool CanAddDetail()
+		//{
+		//	return CurrentDetail?.BookID > 0 &&
+		//		   CurrentDetail.Quantity > 0 &&
+		//		   CurrentDetail.UnitPrice > 0;
+		//}
 
 		private bool CanSaveInvoice()
 		{
@@ -203,6 +203,11 @@ namespace DoanPhamVietDuc.ViewModels
 				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập mã hóa đơn");
 				return;
 			}
+			if (string.IsNullOrWhiteSpace(Invoice.Notes))
+			{
+				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập ghi chú");
+				return;
+			}
 			if (string.IsNullOrWhiteSpace(Invoice.CreateBy))
 			{
 				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập tên người tạo");
@@ -213,6 +218,7 @@ namespace DoanPhamVietDuc.ViewModels
 				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng chọn ít nhất 1 sản phẩm");
 				return;
 			}
+
 
 			try
 			{

@@ -23,7 +23,7 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                    <Image Source="/Images/FolderImages/category-removebg-preview.png"
                            Width="60" 
                            Height="60" 
                            Margin="20 0"
@@ -34,13 +34,21 @@
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Content="➕ Thêm thể loại" 
-                            Width="140" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding AddCategoryCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Background="#1E293B"
                             Foreground="White"
                             Margin="0 0 20 0"/>
+                    <Button Content="🔍 Xem chi tiết" 
+                            Width="140"
+                            Height="36" 
+                            Command="{Binding ViewDetailCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Background="Green"
+                            Foreground="White"
+                            Margin="0 0 20 0"/>     
 
                     <TextBox Width="350" 
                              Height="50" 
@@ -50,7 +58,14 @@
                              materialDesign:HintAssist.Foreground="Black"
                              Background="White"
                              Margin="20 0 20 0"/>
-                    <Button Content="🔄 Làm mới" Width="130" Height="36" Command="{Binding RefreshCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Background="#3B82F6" Foreground="White"/>
+                    
+                    <Button Content="🔄 Làm mới" 
+                            Width="auto" 
+                            Height="36" 
+                            Command="{Binding RefreshCommand}" 
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Background="#3B82F6" 
+                            Foreground="White"/>
                 </StackPanel>
             </Grid>
         </Border>

@@ -85,9 +85,8 @@ namespace DoanPhamVietDuc.ViewModels
 				CreateTime = DateTime.Now,
 				StaffID = 1,
 				SupplierID = 1,
+				ImportStatus = "Đang xử lý"
 			};
-
-			// Sử dụng ObservableImportDetail thay vì ImportDetail
 			ImportDetails = new ObservableCollection<ObservableImportDetail>();
 
 			// Khởi tạo 1 detail rỗng
@@ -95,7 +94,7 @@ namespace DoanPhamVietDuc.ViewModels
 
 			AddDetailCommand = new RelayCommand(_ => AddDetail(), _ => CanAddDetail());
 			RemoveDetailCommand = new RelayCommand(detail => RemoveDetail(detail as ObservableImportDetail));
-			SaveCommand = new AsyncRelayCommand(async _ => await SaveImportAsync(), _ => CanSaveImport());
+			SaveCommand = new AsyncRelayCommand(async _ => await SaveImportAsync());
 			CancelCommand = new RelayCommand(_ => CancelAndClose());
 
 			Task.Run(() => LoadReferenceDataAsync());
@@ -131,7 +130,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private void ResetCurrentDetail()
 		{
-			// Sử dụng ObservableImportDetail
 			CurrentDetail = new ObservableImportDetail
 			{
 				Quantity = 1,
@@ -142,7 +140,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private void AddDetail()
 		{
-			// Thêm debug để xem giá trị
 			Console.WriteLine($"BookID: {CurrentDetail.BookID}, Quantity: {CurrentDetail.Quantity}, UnitImportPrice: {CurrentDetail.UnitImportPrice}");
 
 			if (CurrentDetail.BookID <= 0)
@@ -179,7 +176,7 @@ namespace DoanPhamVietDuc.ViewModels
 				Subtotal = CurrentDetail.Quantity * CurrentDetail.UnitImportPrice
 			};
 
-			// Lưu trữ thông tin hiển thị của Book mà không tham chiếu đến đối tượng Book
+			// Lưu trữ thông tin hiển thị của Book 
 			detailToAdd.Book = new Book
 			{
 				ID = book.ID,
@@ -191,10 +188,8 @@ namespace DoanPhamVietDuc.ViewModels
 			// Thêm vào danh sách
 			ImportDetails.Add(detailToAdd);
 
-			// Tính tổng tiền
 			CalculateTotalAmount();
 
-			// Reset để nhập chi tiết tiếp theo
 			ResetCurrentDetail();
 		}
 
@@ -219,55 +214,38 @@ namespace DoanPhamVietDuc.ViewModels
 				   CurrentDetail.UnitImportPrice > 0;
 		}
 
-		private bool CanSaveImport()
-		{
-			// Sửa từ Imports thành Import
-			return Import?.SupplierID > 0 &&
-				   !string.IsNullOrWhiteSpace(Import.CreateBy) &&
-				   ImportDetails.Count > 0;
-		}
-
 		private async Task SaveImportAsync()
 		{
-			// Sửa từ Imports thành Import
-			if (Import.SupplierID <= 0)
-			{
-				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng chọn nhà cung cấp");
-				return;
-			}
+			var errors = new List<string>();
 
-			if (string.IsNullOrWhiteSpace(Import.CreateBy))
-			{
-				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập tên người tạo");
-				return;
-			}
+			if (Import.SupplierID <= 0) errors.Add("Vui lòng chọn nhà cung cấp");
+			if (string.IsNullOrWhiteSpace(Import.CreateBy)) errors.Add("Vui lòng nhập tên người tạo");
+			if (string.IsNullOrWhiteSpace(Import.Notes)) errors.Add("Vui lòng nhập ghi chúb");
+			if (ImportDetails.Count == 0) errors.Add("Vui lòng thêm ít nhất một sản phẩm");
+			if (string.IsNullOrWhiteSpace(Import.ImportStatus) || !StatusOptions.Contains(Import.ImportStatus));
 
-			if (ImportDetails.Count == 0)
+			if (errors.Any())
 			{
-				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng thêm ít nhất một sản phẩm");
+				await _dialogService.ShowInfoAsync("Thông báo", string.Join("\n", errors));
 				return;
 			}
 
 			try
 			{
-				// Update total and time
 				Import.TotalAmount = TotalAmount;
 				Import.CreateTime = DateTime.Now;
 
 				Import.Supplier = null;
 				Import.Staff = null;
 
-				// Chuyển đổi từ ObservableImportDetail sang ImportDetail
 				var importDetailsList = ImportDetails.Select(d => new ImportDetail
 				{
 					BookID = d.BookID,
 					Quantity = d.Quantity,
 					UnitImportPrice = d.UnitImportPrice,
 					Subtotal = d.Subtotal
-					// Không gán Book
 				}).ToList();
 
-				// Save to database
 				var success = await _dataService.AddImportAsync(Import, importDetailsList);
 
 				if (success)

@@ -259,16 +259,15 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,16" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <materialDesign:PackIcon Kind="FileDocumentPlus" 
-                                         Width="40" 
-                                         Height="40" 
-                                         Foreground="White" 
-                                         VerticalAlignment="Center"/>
+                <Image Source="/Images/FolderImages/hoadonicon-removebg-preview.png"
+                       Width="70" 
+                       Height="60" 
+                       Margin="20 0"
+                       VerticalAlignment="Center"/>
                 <TextBlock Text="TẠO HÓA ĐƠN" 
-                           FontSize="20" 
+                           FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="White" 
-                           Margin="12,0,0,0" 
                            VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
@@ -321,7 +320,7 @@
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,10,16">
                     <TextBlock Text="Nhân viên *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource ModernTextBox}"
-                             Text="{Binding Invoice.Notes, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Invoice.CreateBy, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto"
                              MaxHeight="100"/>
@@ -349,7 +348,7 @@
                 <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
                     <TextBlock Text="Ghi chú" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource ModernTextBox}"
-                             Text="{Binding Invoice.CreateBy, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Invoice.Notes, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto"
                              MaxHeight="100"/>
@@ -380,6 +379,7 @@
                     <ComboBox Grid.Column="0"
                               Style="{StaticResource ModernComboBox}"
                               materialDesign:HintAssist.Hint="Chọn sách"
+                              materialDesign:HintAssist.Foreground="gray"
                               ItemsSource="{Binding Books}"
                               SelectedValuePath="ID"
                               SelectedValue="{Binding CurrentDetail.BookID}"
@@ -390,6 +390,7 @@
                     <TextBox Grid.Column="1"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Số lượng"
+                             materialDesign:HintAssist.Foreground="gray"
                              Text="{Binding CurrentDetail.Quantity, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,10,0"/>
 
@@ -397,6 +398,7 @@
                     <TextBox Grid.Column="2"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Đơn giá (VNĐ)"
+                             materialDesign:HintAssist.Foreground="gray"
                              Text="{Binding CurrentDetail.UnitPrice, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,10,0"/>
 
@@ -404,6 +406,7 @@
                     <TextBox Grid.Column="3"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Thành tiền (VNĐ)"
+                             materialDesign:HintAssist.Foreground="gray"
                              Text="{Binding CurrentDetail.Subtotal, Mode=OneWay, StringFormat='{}{0:N0}'}"
                              IsReadOnly="True"
                              Margin="0,0,10,0"/>

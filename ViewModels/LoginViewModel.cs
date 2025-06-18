@@ -69,7 +69,6 @@ namespace DoanPhamVietDuc.ViewModels
 		private bool CanLogin()
 		{
 			bool canLogin = !IsLoading && !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
-			System.Diagnostics.Debug.WriteLine($"CanLogin: Result={canLogin}, Username={Username}, Password={(string.IsNullOrEmpty(Password) ? "empty" : "not empty")}");
 			return canLogin;
 		}
 
@@ -84,14 +83,13 @@ namespace DoanPhamVietDuc.ViewModels
 
 				var result = await _authService.LoginAsync(Username, Password);
 
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Kết quả đăng nhập - Success={result.IsSuccess}, Message={result.ErrorMessage}");
+			
 
 				if (result.IsSuccess)
 				{
 					await _dialogService.ShowInfoAsync("Thành công", "Đăng nhập thành công!");
-					System.Diagnostics.Debug.WriteLine("LoginAsync: Sắp gọi OnLoginSuccess");
 					OnLoginSuccess?.Invoke();
-					System.Diagnostics.Debug.WriteLine("LoginAsync: Đã gọi OnLoginSuccess");
+
 				}
 				else
 				{
@@ -100,7 +98,6 @@ namespace DoanPhamVietDuc.ViewModels
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Exception - {ex.Message}");
 				await _dialogService.ShowInfoAsync("Lỗi", $"Có lỗi xảy ra: {ex.Message}");
 			}
 			finally
@@ -113,7 +110,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private void ShowRegister()
 		{
-			System.Diagnostics.Debug.WriteLine("ShowRegister: Gọi ShowRegisterRequested event");
 			ShowRegisterRequested?.Invoke();
 		}
 

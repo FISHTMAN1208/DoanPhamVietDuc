@@ -208,12 +208,12 @@
                         <Border Grid.Column="0" 
                                 Background="White"
                                 CornerRadius="50"
-                                Padding="12"
+                                Padding="10"
                                 Effect="{StaticResource CardShadow}"
                                 Margin="0,0,15,0">
-                            <Image Source="/Images/FolderImages/addbook.png"
-                                   Width="50" 
-                                   Height="50" 
+                            <Image Source="/Images/FolderImages/logobook-removebg-preview.png"
+                                   Width="70" 
+                                   Height="70" 
                                    VerticalAlignment="Center"/>
                         </Border>
 
@@ -253,10 +253,10 @@
                     <!-- Login form -->
                     <StackPanel>
                         <!-- Username field -->
-                        <Border Background="#F8FAFC" 
+                        <Border Background="#C0C9EE" 
                                 CornerRadius="10" 
                                 Margin="0,0,0,18"
-                                Padding="4" 
+                                Padding="6" 
                                 Height="60">
                             <TextBox Text="{Binding Username}" 
                                      Style="{StaticResource ModernTextBoxStyle}"
@@ -267,10 +267,10 @@
                         </Border>
 
                         <!-- Password field -->
-                        <Border Background="#F8FAFC" 
+                        <Border Background="#C0C9EE" 
                                 CornerRadius="10" 
                                 Margin="0,0,0,18"
-                                Padding="4" 
+                                Padding="6" 
                                 Height="60">
                             <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
                                          Style="{StaticResource ModernPasswordBoxStyle}"

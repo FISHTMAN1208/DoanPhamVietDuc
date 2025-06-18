@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" 
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" 
                 BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -24,14 +24,17 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="Invoice" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
-                    <TextBlock Text="QUẢN LÝ HÓA ĐƠN" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <Image Source="/Images/FolderImages/hoadonicon-removebg-preview.png"
+                           Width="60" 
+                           Height="60"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Text="QUẢN LÝ HÓA ĐƠN" FontSize="24" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="Tạo hóa đơn" 
-                            Width="140" 
+                    <Button Content="➕ Tạo hóa đơn" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding AddInvoiceCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -39,34 +42,26 @@
                             Foreground="White"
                             Margin="0 0 20 0"/>
 
-                    <Button Content="Xem chi tiết" 
+                    <Button Content="🔍 Xem chi tiết" 
                             Width="140"
                             Height="36" 
                             Command="{Binding ViewDetailCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Background="#1E293B"
+                            Background="Green"
                             Foreground="White"
                             Margin="0 0 20 0"/>
-
-      
-                 <Button Content="Xuất PDF"
-                            Width="140" 
-                            Height="36"
-                            Command="{Binding ExportPDFCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Background="#10B981"
-                            Foreground="White"
-                            Margin="0 0 20 0"/> 
 
                     <TextBox Width="350" 
                              Height="49" 
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                              Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                              materialDesign:HintAssist.Hint="Tìm kiếm..."
+                             materialDesign:HintAssist.Foreground="black"
+                             Background="white"
                              Margin="20 0 20 0"/>
-                    
-                    <Button Content="Làm mới" 
-                            Width="130" 
+
+                    <Button Content="🔄 Làm mới" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding RefreshCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}" 

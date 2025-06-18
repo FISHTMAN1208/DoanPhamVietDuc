@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation="Dp2">
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -23,14 +23,18 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="AccountGroup" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
-                    <TextBlock Text="QUẢN LÝ NHÂN VIÊN" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <Image Source="/Images/FolderImages/humanpic-removebg-preview.png"
+                            Width="50" 
+                            Height="50" 
+                            VerticalAlignment="Center"
+                            Margin="20 10"/>
+                    <TextBlock Text="QUẢN LÝ NHÂN VIÊN" FontSize="24" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="Thêm nhân viên" 
-                            Width="140" 
+                    <Button Content="➕ Thêm nhân viên" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding AddStaffCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -38,32 +42,25 @@
                             Foreground="White"
                             Margin="0 0 20 0"/>
 
-                    <Button Content="Xem chi tiết" 
-                            Width="140"
+                    <Button Content="🔍 Xem chi tiết" 
+                            Width="auto"
                             Height="36" 
                             Command="{Binding ViewDetailCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            Background="#1E293B"
+                            Background="Green"
                             Foreground="White"
                             Margin="0 0 20 0"/>
 
-                    <Button Content="Xuất PDF"
-                            Width="140" 
-                            Height="36"
-                            Command="{Binding ExportPDFCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Background="#10B981"
-                            Foreground="White"
-                            Margin="0 0 20 0"/>
-
-                    <TextBox Width="200" 
+                    <TextBox Width="350" 
                              Height="49" 
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                              Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                              materialDesign:HintAssist.Hint="Tìm kiếm..."
+                             materialDesign:HintAssist.Foreground="Black"
+                             Background="white"
                              Margin="20 0 20 0"/>
-                    <Button Content="Làm mới" 
-                            Width="130" 
+                    <Button Content="🔄 Làm mới" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding RefreshCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}" 

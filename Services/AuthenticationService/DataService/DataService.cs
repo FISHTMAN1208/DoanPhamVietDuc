@@ -137,6 +137,7 @@ namespace DoanPhamVietDuc.Services.AuthenticationService.DataService
 						(i.Title != null && i.Title.ToLower().Contains(searchText)) ||
 						(i.Author != null && i.Author.ToLower().Contains(searchText)) ||
 						(i.Language != null && i.Language.LanguageName.ToLower().Contains(searchText)) ||
+						(i.Category != null && i.Category.CategoryName.ToLower().Contains(searchText)) ||
 						(i.PublisherName != null && i.PublisherName.ToLower().Contains(searchText))
 					);
 				}
@@ -1259,10 +1260,50 @@ namespace DoanPhamVietDuc.Services.AuthenticationService.DataService
                 Console.WriteLine($"Lỗi khi xóa tài khoản: {ex.Message}");
                 return false;
             }
-
         }
 
-        public async Task<List<Account>> GetAllAccountsAsync()
+		public async Task<bool> VerifyPasswordAsync(string username, string currentPassword)
+		{
+			try
+			{
+				using (var context = _contextFactory())
+				{
+					var account = await context.Accounts
+						.FirstOrDefaultAsync(a => a.Username == username);
+					return account != null && account.Password == currentPassword;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Lỗi khi xác thực mật khẩu: {ex.Message}");
+				return false;
+			}
+		}
+
+		public async Task<bool> UpdatePasswordAsync(string username, string newPassword)
+		{
+			try
+			{
+				using (var context = _contextFactory())
+				{
+					var account = await context.Accounts
+						.FirstOrDefaultAsync(a => a.Username == username);
+					if (account != null)
+					{
+						account.Password = newPassword;
+						return await context.SaveChangesAsync() > 0;
+					}
+					return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Lỗi khi cập nhật mật khẩu: {ex.Message}");
+				return false;
+			}
+		}
+
+		public async Task<List<Account>> GetAllAccountsAsync()
         {
             try
             {

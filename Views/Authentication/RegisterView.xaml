@@ -226,9 +226,9 @@
                                 Padding="12"
                                 Effect="{StaticResource CardShadow}"
                                 Margin="0,0,15,0">
-                            <Image Source="/Images/FolderImages/addbook.png"
-                                   Width="50" 
-                                   Height="50" 
+                            <Image Source="/Images/FolderImages/logobook-removebg-preview.png"
+                                   Width="60" 
+                                   Height="60" 
                                    VerticalAlignment="Center"/>
                         </Border>
 
@@ -287,10 +287,12 @@
                                 Margin="0,0,0,15"
                                 Padding="4" 
                                 Height="60">
-                            <PasswordBox Style="{StaticResource ModernPasswordBoxStyle}"
+                            <PasswordBox x:Name="PasswordBox"
+                                         Style="{StaticResource ModernPasswordBoxStyle}"
                                          materialDesign:HintAssist.Hint="🔒 Mật khẩu"
                                          BorderThickness="0"
-                                         Background="Transparent"/>
+                                         Background="Transparent"
+                                         PasswordChanged="PasswordBox_PasswordChanged"/>
                         </Border>
 
                         <!-- Confirm Password field -->
@@ -299,11 +301,13 @@
                                 Margin="0,0,0,15"
                                 Padding="4" 
                                 Height="60">
-                            <PasswordBox Style="{StaticResource ModernPasswordBoxStyle}"
+                            <PasswordBox x:Name="ConfirmPasswordBox"
+                                         Style="{StaticResource ModernPasswordBoxStyle}"
                                          materialDesign:HintAssist.Hint="🔐 Xác nhận mật khẩu"
                                          BorderThickness="0"
-                                         Background="Transparent"/>
-                        </Border>
+                                         Background="Transparent"
+                                         PasswordChanged="ConfirmPasswordBox_PasswordChanged"/>
+                         </Border>
 
                         <!-- Staff ComboBox -->
                         <Border Background="#F8FAFC" 

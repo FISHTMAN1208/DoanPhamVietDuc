@@ -109,8 +109,15 @@
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,10" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="BookOpen" Width="40" Height="40" Foreground="White"/>
-                    <TextBlock Text="CHI TIẾT SÁCH" FontSize="20" FontWeight="Bold" Foreground="White" Margin="12,6,0,0"/>
+                    <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                            Width="40" 
+                            Height="40" 
+                            VerticalAlignment="Center"/>        
+                    <TextBlock Text="CHI TIẾT SÁCH" 
+                               FontSize="24"
+                               FontWeight="Bold" 
+                               Foreground="White" 
+                               Margin="12,6,0,0"/>
                 </StackPanel>
             </DockPanel>
         </Border>

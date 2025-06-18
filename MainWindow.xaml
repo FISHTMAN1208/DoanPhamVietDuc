@@ -86,7 +86,7 @@
             <StackPanel>
                 <!-- Logo và tiêu đề -->
                 <StackPanel Margin="0 20 0 30" HorizontalAlignment="Center">
-                    <Image Source="/Images/FolderImages/addbook.png"
+                    <Image Source="/Images/FolderImages/logobook-removebg-preview.png"
                                 Width="80" 
                                 Height="80" 
                                 VerticalAlignment="Center"/>
@@ -213,14 +213,14 @@
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}" 
                              Foreground="White" 
-                             Margin="5 50 5 10" 
+                             Margin="5 10" 
                              Height="50" 
                              HorizontalContentAlignment="Left"
                              Command="{Binding NavigateToAccountManagerCommand}"
                              Visibility="{Binding CanManageAccounts, Converter={StaticResource BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountConvert" Width="24" Height="24" Margin="0 0 10 0"/>
-                        <TextBlock Text="Tài khoản" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="Quản lý tài khoản" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -268,7 +268,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:AccountListViewModel}">
                     <accountsviews:AccountListView/>
                 </DataTemplate>
-                
+
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

@@ -6,8 +6,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Sửa chi tiết hóa đơn" 
-        Height="700" 
-        Width="1200"
+        Height="auto" 
+        Width="auto"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -242,7 +242,10 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,15" Margin="0,0,0,20" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <materialDesign:PackIcon Kind="FileDocumentEdit" Width="32" Height="32" Foreground="White" VerticalAlignment="Center"/>
+                <Image Source="/Images/FolderImages/hoadonicon-removebg-preview.png"
+                        Width="70" 
+                        Height="60" 
+                        VerticalAlignment="Center"/>
                 <TextBlock Text="SỬA CHI TIẾT HÓA ĐƠN" FontSize="22" FontWeight="Bold" Foreground="White" Margin="15,0,0,0" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Invoice.InvoiceID, StringFormat='Mã hóa đơn: {0}'}"
                            FontSize="16"
@@ -274,6 +277,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Chọn sách"
+                          materialDesign:HintAssist.Foreground="gray"
                           ItemsSource="{Binding Books}"
                           SelectedValuePath="ID"
                           SelectedValue="{Binding CurrentDetail.BookID}"
@@ -284,6 +288,7 @@
                 <TextBox Grid.Column="1"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Số lượng"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding CurrentDetail.Quantity, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,10,0"/>
 
@@ -291,6 +296,7 @@
                 <TextBox Grid.Column="2"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Đơn giá (VNĐ)"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding CurrentDetail.UnitPrice, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,10,0"/>
 
@@ -298,6 +304,7 @@
                 <TextBox Grid.Column="3"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Thành tiền (VNĐ)"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding CurrentDetail.Subtotal, Mode=OneWay, StringFormat='{}{0:N0}'}"
                          IsReadOnly="True"
                          Margin="0,0,10,0"/>
@@ -344,19 +351,17 @@
                   VerticalScrollBarVisibility="Auto"
                   materialDesign:DataGridAssist.CellPadding="8">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="STT" Width="80">
+                <DataGridTextColumn Header="STT" Width="150">
                     <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0}">
-                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}" Path="Header"/>
-                        </MultiBinding>
+                        <Binding RelativeSource="{RelativeSource AncestorType=DataGridRow}" Converter="{StaticResource IndexConverter}"/>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Sách" Binding="{Binding Book.Title}" MinWidth="250"/>
-                <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="180"/>
-                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="140"/>
-                <DataGridTextColumn Header="Đơn giá" Binding="{Binding UnitPrice, StringFormat='{}{0:N0} VNĐ'}" Width="180"/>
-                <DataGridTextColumn Header="Thành tiền" Binding="{Binding Subtotal, StringFormat='{}{0:N0} VNĐ'}" Width="180"/>
+                <DataGridTextColumn Header="Sách" Binding="{Binding Book.Title}" MinWidth="350"/>
+                <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="300"/>
+                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="200"/>
+                <DataGridTextColumn Header="Đơn giá" Binding="{Binding UnitPrice, StringFormat='{}{0:N0} VNĐ'}" Width="250"/>
+                <DataGridTextColumn Header="Thành tiền" Binding="{Binding Subtotal, StringFormat='{}{0:N0} VNĐ'}" Width="300"/>
 
                 <DataGridTemplateColumn Header="Thao tác" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>

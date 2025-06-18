@@ -12,7 +12,8 @@ namespace DoanPhamVietDuc.Data
 	{
 		public ApplicationDbContext CreateDbContext(string[] args)
 		{
-			var connectionString = "Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;Trusted_Connection=True;TrustServerCertificate=True;";
+			var connectionString = "Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;User Id=sa;Password=phamvietduc1208;Trusted_Connection=True;TrustServerCertificate=True;";
+
 
 			var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 			optionsBuilder.UseSqlServer(connectionString);

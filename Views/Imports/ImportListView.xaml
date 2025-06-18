@@ -24,7 +24,7 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                    <Image Source="/Images/FolderImages/phieuxuat-removebg-preview.png"
                            Width="60" 
                            Height="60" 
                            Margin="20 0"

@@ -250,7 +250,7 @@
         <!-- Header với gradient -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,16" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                <Image Source="/Images/FolderImages/user-removebg-preview.png"
                         Width="35" 
                         Height="35" 
                         VerticalAlignment="Center"/>
@@ -274,7 +274,6 @@
                         <Grid>
                             <TextBox x:Name="UsernameTextBox" 
                                      Style="{StaticResource ModernTextBox}" 
-                                     materialDesign:HintAssist.Hint="Nhập tên đăng nhập" 
                                      Text="{Binding Account.Username, UpdateSourceTrigger=PropertyChanged}" 
                                      Margin="0,0,0,5"/>
                             <TextBlock Text="{Binding UsernameError}"
@@ -294,7 +293,6 @@
                         <Grid>
                             <PasswordBox x:Name="PasswordBox"
                                          Style="{StaticResource ModernPasswordBox}"
-                                         materialDesign:HintAssist.Hint="Nhập mật khẩu"
                                          Margin="0,0,0,5"/>
                             <TextBlock Text="{Binding ConfirmPasswordError}"
                                        Foreground="Red"
@@ -312,7 +310,6 @@
                         <TextBlock Text="Xác nhận mật khẩu *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                         <PasswordBox x:Name="ConfirmPasswordBox"
                                      Style="{StaticResource ModernPasswordBox}"
-                                     materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
                                      Margin="0,0,0,5"
                                      PasswordChanged="ConfirmPasswordBox_PasswordChanged"/>
 
@@ -325,7 +322,7 @@
                             <ComboBox Style="{StaticResource ModernComboBox}"
                                       ItemsSource="{Binding Roles}"
                                       SelectedValue="{Binding Account.Role, UpdateSourceTrigger=PropertyChanged}"
-                                      materialDesign:HintAssist.Hint="Chọn quyền"
+                                      
                                       Margin="0,0,0,5">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -349,8 +346,7 @@
                         <TextBlock Text="Trạng thái *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                         <ComboBox Style="{StaticResource ModernComboBox}"
                                   ItemsSource="{Binding Statuses}"
-                                  SelectedValue="{Binding Account.Status, UpdateSourceTrigger=PropertyChanged}"
-                                  materialDesign:HintAssist.Hint="Chọn trạng thái">
+                                  SelectedValue="{Binding Account.Status, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding}"/>

@@ -13,6 +13,11 @@ namespace DoanPhamVietDuc.Attributes
 	{
 		public override bool IsValid(object value)
 		{
+			if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+			{
+				ErrorMessage = "Tên đăng nhập không được để trống";
+				return false;
+			}
 			if (value is not string username)
 			{
 				return false;

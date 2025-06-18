@@ -20,7 +20,7 @@ namespace DoanPhamVietDuc.Models
 		public int? StaffID { get; set; }
 
 		[Required]
-		public DateTime ImportDate { get; set; }
+		public DateTime ImportDate { get; set; } = DateTime.Now;
 
 		[Required]
 		public decimal TotalAmount { get; set; }
@@ -29,7 +29,7 @@ namespace DoanPhamVietDuc.Models
 		[MaxLength(20)]
 		public string ImportStatus { get; set; }
 
-		[MaxLength(500)]  
+		[MaxLength(500)]
 		public string Notes { get; set; }
 
 		[Required]

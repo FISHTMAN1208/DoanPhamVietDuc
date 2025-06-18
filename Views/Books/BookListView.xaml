@@ -29,13 +29,17 @@
                            Height="60" 
                            Margin="20 0"
                            VerticalAlignment="Center"/>
-                    <TextBlock Text="QUẢN LÝ SÁCH" FontSize="24" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <TextBlock Text="QUẢN LÝ SÁCH" 
+                               FontSize="24"
+                               FontWeight="Bold" 
+                               Foreground="#1E293B" 
+                               VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="➕ Thêm sách" 
-                            Width="140" 
+                    <Button Content="➕ Thêm sách mới" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding AddBookCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -62,7 +66,7 @@
                              Background="white"
                              Margin="20 0 20 0"/>
                     <Button Content="🔄 Làm mới" 
-                            Width="130" 
+                            Width="auto" 
                             Height="36" 
                             Command="{Binding LoadBooksCommand}" 
                             Style="{StaticResource MaterialDesignRaisedButton}" 

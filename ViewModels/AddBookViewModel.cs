@@ -107,33 +107,46 @@ namespace DoanPhamVietDuc.ViewModels
 				var languages = await _dataService.GetAllLanguagesAsync();
 				var bookCoverTypes = await _dataService.GetAllBookCoverTypesAsync();
 
-				Categories = new ObservableCollection<Category>(categories);
-				Suppliers = new ObservableCollection<Supplier>(suppliers);
-				Languages = new ObservableCollection<Language>(languages);
-				BookCoverTypes = new ObservableCollection<BookCoverType>(bookCoverTypes);
+				Categories = new ObservableCollection<Category>(categories ?? new List<Category>());
+				Suppliers = new ObservableCollection<Supplier>(suppliers ?? new List<Supplier>());
+				Languages = new ObservableCollection<Language>(languages ?? new List<Language>());
+				BookCoverTypes = new ObservableCollection<BookCoverType>(bookCoverTypes ?? new List<BookCoverType>());
 
-				// Thiết lập giá trị mặc định cho Book
-				if (Categories.Count > 0)
+				if (Categories.Count == 0)
 				{
-					Book.CategoryID = Categories[0].CategoryID;
+					await _dialogService.ShowInfoAsync("Lỗi", "Không có thể loại sách nào được tải. Vui lòng kiểm tra dữ liệu.");
+					_window.Close();
+					return;
 				}
-				if (Suppliers.Count > 0)
+				if (Suppliers.Count == 0)
 				{
-					Book.SupplierID = Suppliers[0].SupplierID;
+					await _dialogService.ShowInfoAsync("Lỗi", "Không có nhà cung cấp nào được tải. Vui lòng kiểm tra dữ liệu.");
+					_window.Close();
+					return;
 				}
-				if (Languages.Count > 0)
+				if (Languages.Count == 0)
 				{
-					Book.LanguageID = Languages[0].LanguageID;
+					await _dialogService.ShowInfoAsync("Lỗi", "Không có ngôn ngữ nào được tải. Vui lòng kiểm tra dữ liệu.");
+					_window.Close();
+					return;
 				}
-				if (BookCoverTypes.Count > 0)
+				if (BookCoverTypes.Count == 0)
 				{
-					Book.BookCoverTypeID = BookCoverTypes[0].BookCoverTypeID;
+					await _dialogService.ShowInfoAsync("Lỗi", "Không có loại bìa nào được tải. Vui lòng kiểm tra dữ liệu.");
+					_window.Close();
+					return;
 				}
+
+				Book.CategoryID = Categories[0].CategoryID;
+				Book.SupplierID = Suppliers[0].SupplierID;
+				Book.LanguageID = Languages[0].LanguageID;
+				Book.BookCoverTypeID = BookCoverTypes[0].BookCoverTypeID;
 			}
 			catch (Exception ex)
 			{
 				await _dialogService.ShowInfoAsync("Lỗi", $"Không thể tải dữ liệu: {ex.Message}");
 				Console.WriteLine($"Error in LoadReferenceDataAsync: {ex}");
+				_window.Close();
 			}
 			finally
 			{
@@ -213,6 +226,11 @@ namespace DoanPhamVietDuc.ViewModels
 			if (Book.PageCount <= 0)
 			{
 				await _dialogService.ShowInfoAsync("Thông báo", "Số trang sách phải lớn hơn 0");
+				return;
+			}
+			if (Book.Quantity <= 0)
+			{
+				await _dialogService.ShowInfoAsync("Thông báo", "Số lượng phải lớn hơn 0");
 				return;
 			}
 

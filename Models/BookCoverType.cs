@@ -13,6 +13,7 @@ namespace DoanPhamVietDuc.Models
 		[Required]
 		public int BookCoverTypeID { get; set; }
 		[Required]
+		[MaxLength(50)]
 		public string BookCoverTypeName { get; set; }
 
 		public ICollection<Book> Books { get; set; }

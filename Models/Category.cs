@@ -14,12 +14,14 @@ namespace DoanPhamVietDuc.Models
 		public int CategoryID { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string CategoryName { get; set; }
 
 		[Required]
 		public DateTime ModifyTime { get; set; } = DateTime.Now;
 
 		[Required]
+		[MaxLength(50)]
 		public string ModifyBy { get; set; }
 
 		public virtual ICollection<Book> Books { get; set; }

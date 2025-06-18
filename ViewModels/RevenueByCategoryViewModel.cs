@@ -56,10 +56,18 @@ namespace DoanPhamVietDuc.ViewModels
 			set => SetProperty(ref _xAxes, value);
 		}
 
+		// THÊM TRỤC Y
+		private ObservableCollection<Axis> _yAxes;
+		public ObservableCollection<Axis> YAxes
+		{
+			get => _yAxes;
+			set => SetProperty(ref _yAxes, value);
+		}
+
 		public ICommand LoadRevenueCommand { get; }
 		public ICommand CloseCommand { get; }
 		public ICommand ExportPDFCommand { get; }
-	
+
 
 		public RevenueByCategoryViewModel(IDataService dataService, IDialogService dialogService)
 		{
@@ -70,10 +78,11 @@ namespace DoanPhamVietDuc.ViewModels
 			Revenues = new ObservableCollection<CategoryRevenue>();
 			ChartSeries = new ObservableCollection<ISeries>();
 			XAxes = new ObservableCollection<Axis>();
+			YAxes = new ObservableCollection<Axis>(); // KHỞI TẠO TRỤC Y
 
 			LoadRevenueCommand = new AsyncRelayCommand(async _ => await LoadRevenueAsync());
 			CloseCommand = new RelayCommand(_ => CloseWindow());
-			
+
 			_ = InitializeAsync();
 		}
 
@@ -95,7 +104,7 @@ namespace DoanPhamVietDuc.ViewModels
 			{
 				IsBusy = true;
 				var revenues = await _dataService.GetRevenueByCategoryAsync(StartDate, EndDate, "Đã thanh toán");
-				Revenues = new ObservableCollection<CategoryRevenue>(revenues); // Cải thiện hiệu suất
+				Revenues = new ObservableCollection<CategoryRevenue>(revenues);
 				UpdateChart(revenues);
 			}
 			catch (Exception ex)
@@ -112,6 +121,7 @@ namespace DoanPhamVietDuc.ViewModels
 		{
 			ChartSeries.Clear();
 			XAxes.Clear();
+			YAxes.Clear(); // XÓA TRỤC Y CŨ
 
 			ChartSeries.Add(new ColumnSeries<decimal>
 			{
@@ -129,6 +139,15 @@ namespace DoanPhamVietDuc.ViewModels
 				LabelsRotation = 45,
 				TextSize = 12,
 				LabelsPaint = new SolidColorPaint(SKColors.Black)
+			});
+
+			// THÊM TRỤC Y VÀ ÉP BẮT ĐẦU TỪ 0
+			YAxes.Add(new Axis
+			{
+				MinLimit = 0, // Buộc trục Y bắt đầu từ 0
+				LabelsPaint = new SolidColorPaint(SKColors.Black),
+				TextSize = 12,
+				Labeler = value => $"{value:N0} VNĐ" // Format nhãn trục Y
 			});
 
 			Console.WriteLine($"Đã tải {revenues.Count} thể loại, tổng doanh thu: {revenues.Sum(r => r.Revenue)}");

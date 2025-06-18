@@ -94,7 +94,7 @@
 
         <!-- Modern ComboBox Style -->
         <Style x:Key="ModernComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Padding" Value="12,8"/>
@@ -265,12 +265,12 @@
         <!-- Header với gradient -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,16" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                <Image Source="/Images/FolderImages/phieuxuat-removebg-preview.png"
                        Width="40" 
                        Height="40" 
                        VerticalAlignment="Center"/>
                 <TextBlock Text="TẠO PHIẾU NHẬP" 
-                           FontSize="20" 
+                           FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="White" 
                            Margin="12,0,0,0" 
@@ -296,7 +296,6 @@
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,10,16">
                     <TextBlock Text="Nhà cung cấp *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}"
-                              materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
                               ItemsSource="{Binding Suppliers}"
                               SelectedValuePath="SupplierID"
                               SelectedValue="{Binding Import.SupplierID}"
@@ -307,7 +306,6 @@
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,10,16">
                     <TextBlock Text="Ngày nhập *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <DatePicker Style="{StaticResource ModernDatePicker}"
-                                materialDesign:HintAssist.Hint="Chọn ngày nhập"
                                 SelectedDate="{Binding Import.ImportDate}"/>
                 </StackPanel>
 
@@ -315,7 +313,6 @@
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,16">
                     <TextBlock Text="Trạng thái *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <ComboBox Style="{StaticResource ModernComboBox}"
-                              materialDesign:HintAssist.Hint="Chọn trạng thái"
                               ItemsSource="{Binding StatusOptions}"
                               SelectedValue="{Binding Import.ImportStatus}"/>
                 </StackPanel>
@@ -324,7 +321,6 @@
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,0">
                     <TextBlock Text="Người tạo *" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource ModernTextBox}"
-                             materialDesign:HintAssist.Hint="Nhập tên người tạo"
                              Text="{Binding Import.CreateBy, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
@@ -332,7 +328,6 @@
                 <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,0">
                     <TextBlock Text="Ghi chú" FontWeight="Medium" Margin="0,0,0,8" Foreground="#374151"/>
                     <TextBox Style="{StaticResource ModernTextBox}"
-                             materialDesign:HintAssist.Hint="Nhập ghi chú"
                              Text="{Binding Import.Notes, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </Grid>
@@ -361,6 +356,7 @@
                     <ComboBox Grid.Column="0"
                               Style="{StaticResource ModernComboBox}"
                               materialDesign:HintAssist.Hint="Chọn sách"
+                              materialDesign:HintAssist.Foreground="Black"
                               ItemsSource="{Binding Books}"
                               SelectedValuePath="ID"
                               SelectedValue="{Binding CurrentDetail.BookID}"
@@ -371,6 +367,7 @@
                     <TextBox Grid.Column="1"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Số lượng"
+                             materialDesign:HintAssist.Foreground="Black"
                              Text="{Binding CurrentDetail.Quantity, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,10,0"/>
 
@@ -378,6 +375,7 @@
                     <TextBox Grid.Column="2"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Đơn giá nhập (VNĐ)"
+                             materialDesign:HintAssist.Foreground="Black"
                              Text="{Binding CurrentDetail.UnitImportPrice, UpdateSourceTrigger=PropertyChanged}"
                              Margin="0,0,10,0"/>
 
@@ -385,6 +383,7 @@
                     <TextBox Grid.Column="3"
                              Style="{StaticResource ModernTextBox}"
                              materialDesign:HintAssist.Hint="Thành tiền (VNĐ)"
+                             materialDesign:HintAssist.Foreground="Black"
                              Text="{Binding CurrentDetail.Subtotal, Mode=OneWay, StringFormat='{}{0:N0}'}"
                              IsReadOnly="True"
                              Margin="0,0,10,0"/>
@@ -412,25 +411,26 @@
                           BorderBrush="#E2E8F0"
                           BorderThickness="1">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="STT" Width="150">
+                        <DataGridTextColumn Header="STT" Width="180">
                             <DataGridTextColumn.Binding>
-                                <MultiBinding StringFormat="{}{0}">
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}" Path="Header"/>
-                                </MultiBinding>
+                                <Binding RelativeSource="{RelativeSource AncestorType=DataGridRow}" Converter="{StaticResource IndexConverter}"/>
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
+                        
 
-                        <DataGridTextColumn Header="Sách" Binding="{Binding Book.Title}" Width="270"/>
-                        <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="200"/>
-                        <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="150"/>
 
-                        <DataGridTextColumn Header="Đơn giá" Width="170">
+                        <DataGridTextColumn Header="Sách" Binding="{Binding Book.Title}" Width="400"/>
+                        <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="250"/>
+                        <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="250"/>
+
+                        <DataGridTextColumn Header="Đơn giá" Width="250">
                             <DataGridTextColumn.Binding>
                                 <Binding Path="UnitImportPrice" StringFormat="{}{0:N0} VNĐ" />
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Thành tiền" Width="170">
+
+                        <DataGridTextColumn Header="Thành tiền" Width="300">
                             <DataGridTextColumn.Binding>
                                 <Binding Path="Subtotal" StringFormat="{}{0:N0} VNĐ" />
                             </DataGridTextColumn.Binding>
@@ -459,7 +459,7 @@
                                VerticalAlignment="Center"
                                Margin="0,0,15,0"
                                Foreground="#374151"/>
-                    <Border Background="#F1F5F9" 
+                    <Border Background="Gray" 
                             Padding="20,12" 
                             CornerRadius="8" 
                             MinWidth="200">
@@ -469,7 +469,7 @@
                         <TextBlock Text="{Binding TotalAmount, StringFormat='{}{0:N0} VNĐ'}" 
                                    FontSize="16" 
                                    FontWeight="Bold" 
-                                   HorizontalAlignment="Right"
+                                   HorizontalAlignment="Center"
                                    Foreground="White"/>
                     </Border>
                 </StackPanel>

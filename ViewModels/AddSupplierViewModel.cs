@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using DoanPhamVietDuc.Services.AuthenticationService.DataService;
+using System.Text.RegularExpressions;
 
 namespace DoanPhamVietDuc.ViewModels
 {
@@ -58,19 +59,33 @@ namespace DoanPhamVietDuc.ViewModels
 				await _dialogService.ShowInfoAsync("Thông báo",$"Nhà cung cấp '{Supplier.SupplierName}' đã tồn tại. Vui lòng chọn tên khác.");
 				return;
 			}
-			if (string.IsNullOrWhiteSpace(Supplier.SupplierPhone))
-			{
-				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập số điện thoại");
-				return;
-			}
+
 			if (string.IsNullOrWhiteSpace(Supplier.SupplierAddress))
 			{
 				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập địa chỉ");
 				return;
 			}
+
+			if (string.IsNullOrWhiteSpace(Supplier.SupplierPhone))
+			{
+				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập số điện thoại");
+				return;
+			}
+			string phonePattern = @"^(?:0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$";
+			if (!Regex.IsMatch(Supplier.SupplierPhone, phonePattern))
+			{
+				await _dialogService.ShowInfoAsync("Thông báo", "Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại hợp lệ");
+				return;
+			}
 			if (string.IsNullOrWhiteSpace(Supplier.SupplierEmail))
 			{
 				await _dialogService.ShowInfoAsync("Thông báo", "Vui lòng nhập email");
+				return;
+			}
+			string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+			if (!Regex.IsMatch(Supplier.SupplierEmail, emailPattern))
+			{
+				await _dialogService.ShowInfoAsync("Thông báo", "Email không hợp lệ. Vui lòng nhập email đúng định dạng (ví dụ: user@domain.com).");
 				return;
 			}
 			if (string.IsNullOrWhiteSpace(Supplier.TaxCode))

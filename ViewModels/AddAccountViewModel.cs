@@ -177,7 +177,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private async Task SaveAccountAsync()
 		{
-			// Reset error messages
 			UsernameError = string.Empty;
 			ConfirmPasswordError = string.Empty;
 			StaffError = string.Empty;

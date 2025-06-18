@@ -26,12 +26,14 @@ namespace DoanPhamVietDuc.Models
 		public int BookCoverTypeID { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string Author { get; set; }
 
 		[Required]
 		public DateTime ModifyTime { get; set; } = DateTime.Now;
 
 		[Required]
+		[MaxLength(50)]
 		public string ModifyBy { get; set; }
 
 		[MaxLength(50)]
@@ -39,7 +41,7 @@ namespace DoanPhamVietDuc.Models
 		public string Title { get; set; }
 
 		[Required]
-		public DateTime PublishTime { get; set; }
+		public DateTime PublishTime { get; set; } = DateTime.Now;
 
 		[Required]
 		public decimal Price { get; set; }

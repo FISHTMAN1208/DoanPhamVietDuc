@@ -183,11 +183,16 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,16" Margin="0,0,0,24" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                <Image Source="/Images/FolderImages/phieuxuat-removebg-preview.png"
                        Width="40" 
                        Height="40" 
                        VerticalAlignment="Center"/>
-                <TextBlock Text="CHI TIẾT PHIẾU NHẬP" FontSize="24" FontWeight="Bold" Foreground="White" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock Text="CHI TIẾT PHIẾU NHẬP"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="12,0,0,0" 
+                           VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
 
@@ -207,30 +212,30 @@
                 <!-- Cột 1 -->
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,15,0">
                     <TextBlock Text="Mã phiếu:" FontWeight="Medium" Foreground="#374151"/>
-                    <TextBlock Text="{Binding ImportID}" Style="{StaticResource ModernInfoTextBlock}"/>
+                    <TextBlock Text="{Binding Import.ImportID}" Style="{StaticResource ModernInfoTextBlock}"/>
 
                     <TextBlock Text="Nhà cung cấp:" FontWeight="Medium" Foreground="#374151" Margin="0,15,0,0"/>
-                    <TextBlock Text="{Binding Supplier.SupplierName}" Style="{StaticResource ModernInfoTextBlock}"/>
+                    <TextBlock Text="{Binding Import.Supplier.SupplierName}" Style="{StaticResource ModernInfoTextBlock}"/>
                 </StackPanel>
 
                 <!-- Cột 2 -->
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,15,0">
                     <TextBlock Text="Ngày nhập:" FontWeight="Medium" Foreground="#374151"/>
-                    <TextBlock Text="{Binding ImportDate, StringFormat='{}{0:dd/MM/yyyy}'}" Style="{StaticResource ModernInfoTextBlock}"/>
+                    <TextBlock Text="{Binding Import.ImportDate, StringFormat='{}{0:dd/MM/yyyy}'}" Style="{StaticResource ModernInfoTextBlock}"/>
 
                     <TextBlock Text="Trạng thái:" FontWeight="Medium" Foreground="#374151" Margin="0,15,0,0"/>
                     
-                    <TextBlock Text="{Binding ImportStatus}" Margin="0,5,0,0" FontWeight="SemiBold">
+                    <TextBlock Text="{Binding Import.ImportStatus}" Margin="0,5,0,0" FontWeight="SemiBold">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ImportStatus}" Value="Hoàn thành">
+                                    <DataTrigger Binding="{Binding Import.ImportStatus}" Value="Hoàn thành">
                                         <Setter Property="Foreground" Value="#10B981" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding ImportStatus}" Value="Đang xử lý">
+                                    <DataTrigger Binding="{Binding Import.ImportStatus}" Value="Đang xử lý">
                                         <Setter Property="Foreground" Value="#F59E0B" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding ImportStatus}" Value="Hủy bỏ">
+                                    <DataTrigger Binding="{Binding Import.ImportStatus}" Value="Hủy bỏ">
                                         <Setter Property="Foreground" Value="#EF4444" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -242,17 +247,17 @@
                 <!-- Cột 3 -->
                 <StackPanel Grid.Row="0" Grid.Column="2">
                     <TextBlock Text="Người tạo:" FontWeight="Medium" Foreground="#374151"/>
-                    <TextBlock Text="{Binding CreateBy}" Style="{StaticResource ModernInfoTextBlock}"/>
+                    <TextBlock Text="{Binding Import.CreateBy}" Style="{StaticResource ModernInfoTextBlock}"/>
 
                     <TextBlock Text="Thời gian tạo:" FontWeight="Medium" Foreground="#374151" Margin="0,15,0,0"/>
-                    <TextBlock Text="{Binding CreateTime, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource ModernInfoTextBlock}"/>
+                    <TextBlock Text="{Binding Import.CreateTime, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" Style="{StaticResource ModernInfoTextBlock}"/>
                 </StackPanel>
 
                 <!-- Ghi chú -->
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,15,0,0">
                     <TextBlock Text="Ghi chú:" FontWeight="Medium" Foreground="#374151"/>
                     <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,5,0,0">
-                        <TextBlock Text="{Binding Notes}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Import.Notes}" TextWrapping="Wrap"/>
                     </Border>
                 </StackPanel>
             </Grid>
@@ -267,7 +272,7 @@
                 </Grid.RowDefinitions>
 
                 <DataGrid Grid.Row="1" 
-                          ItemsSource="{Binding ImportDetails}" 
+                          ItemsSource="{Binding Import.ImportDetails}" 
                           AutoGenerateColumns="False" 
                           IsReadOnly="True" 
                           Style="{StaticResource MaterialDesignDataGrid}"
@@ -278,26 +283,24 @@
                           BorderBrush="#E2E8F0"
                           BorderThickness="1">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="STT" Width="80">
+                        <DataGridTextColumn Header="STT" Width="180">
                             <DataGridTextColumn.Binding>
-                                <MultiBinding StringFormat="{}{0}">
-                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}" Path="Header"/>
-                                </MultiBinding>
+                                <Binding RelativeSource="{RelativeSource AncestorType=DataGridRow}" Converter="{StaticResource IndexConverter}"/>
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Tiêu đề" Binding="{Binding Book.Title}" Width="*"/>
-                        <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="180"/>
-                        <DataGridTextColumn Header="Tác giả" Binding="{Binding Book.Author}" Width="160"/>
-                        <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="120"/>
+                        <DataGridTextColumn Header="Tiêu đề" Binding="{Binding Book.Title}" Width="500"/>
+                        <DataGridTextColumn Header="Mã ISBN" Binding="{Binding Book.ISBNCode}" Width="250"/>
+                        <DataGridTextColumn Header="Tác giả" Binding="{Binding Book.Author}" Width="250"/>
+                        <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}" Width="200"/>
 
-                        <DataGridTextColumn Header="Đơn giá" Width="120">
+                        <DataGridTextColumn Header="Đơn giá" Width="200">
                             <DataGridTextColumn.Binding>
                                 <Binding Path="UnitImportPrice" StringFormat="{}{0:N0} VNĐ" />
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Thành tiền" Width="130">
+                        <DataGridTextColumn Header="Thành tiền" Width="250">
                             <DataGridTextColumn.Binding>
                                 <Binding Path="Subtotal" StringFormat="{}{0:N0} VNĐ" />
                             </DataGridTextColumn.Binding>
@@ -324,13 +327,13 @@
                            Margin="0,0,15,0"
                            Foreground="#374151"/>
                 <Border Background="gray" 
-                        Padding="15, 10"
+                        Padding="15, 15"
                         CornerRadius="8" 
                         MinWidth="200">
                     <Border.Effect>
                         <DropShadowEffect Color="#00000020" BlurRadius="8" ShadowDepth="2" Opacity="0.2"/>
                     </Border.Effect>
-                    <TextBlock Text="{Binding TotalAmount, StringFormat='{}{0:N0} VNĐ'}" 
+                    <TextBlock Text="{Binding Import.TotalAmount, StringFormat='{}{0:N0} VNĐ'}" 
                                FontSize="16" 
                                FontWeight="Bold" 
                                HorizontalAlignment="Left"

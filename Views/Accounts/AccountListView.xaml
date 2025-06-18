@@ -12,9 +12,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation ="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -23,14 +23,18 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="AccountAddOutline" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
+                    <Image Source="/Images/FolderImages/user-removebg-preview.png"
+                            Width="60" 
+                            Height="60" 
+                            Margin="20 0"
+                            VerticalAlignment="Center"/>
                     <TextBlock Text="QUẢN LÝ TÀI KHOẢN" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="Thêm tài khoản " 
-                        Width="140" 
+                    <Button Content="➕ Thêm tài khoản " 
+                        Width="auto" 
                         Height="36" 
                         Command="{Binding AddAccountCommand}" 
                         Style="{StaticResource MaterialDesignRaisedButton}"
@@ -38,21 +42,12 @@
                         Foreground="White"
                         Margin="0 0 20 0"/>
 
-                    <Button Content="Xem chi tiết" 
-                        Width="140"
+                    <Button Content="🔍 Xem chi tiết" 
+                        Width="auto"
                         Height="36" 
                         Command="{Binding ViewDetailAccountCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="#D50B8B"
-                        Foreground="White"
-                        Margin="0 0 20 0"/>
-
-                    <Button Content="Xuất PDF"
-                        Width="140" 
-                        Height="36"
-                        Command="{Binding ExportPDFCommand}"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="#10B981"
+                        Background="green"
                         Foreground="White"
                         Margin="0 0 20 0"/>
 
@@ -62,9 +57,10 @@
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" 
                          materialDesign:HintAssist.Hint="Tìm kiếm..."
                          materialDesign:HintAssist.Foreground="Black"
+                         Background="white"
                          Margin="20 0 20 0"/>
-                    <Button Content="Làm mới"
-                            Width="130" 
+                    <Button Content="🔄 Làm mới"
+                            Width="auto" 
                             Height="36"
                             Command="{Binding RefreshCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -130,7 +126,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Tên nhân viên" Binding="{Binding Staff.FullName}" Width="280">
+                    <DataGridTextColumn Header="Tên nhân viên" Binding="{Binding Staff.FullName}" Width="270">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -139,17 +135,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="180">
+                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="150">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -159,14 +145,24 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Lần cuối đăng nhập" Width="280">
+                    <DataGridTextColumn Header="Trạng thái" Binding="{Binding Status}" Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Lần cuối đăng nhập" Width="300">
                         <DataGridTextColumn.Binding>
                             <Binding Path="LastLogin" StringFormat="{}{0:dd/MM/yyyy}" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
 
-                    <DataGridTemplateColumn Header="Thao tác" Width="250">
+                    <DataGridTemplateColumn Header="Thao tác" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

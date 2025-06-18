@@ -11,9 +11,17 @@
 	<ItemGroup>
 	  <None Remove="Images\chientranhtiente.jpg" />
 	  <None Remove="Images\defaultbook.jpg" />
-	  <None Remove="Images\FolderImages\addbook.png" />
+	  <None Remove="Images\FolderImages\aa-removebg-preview.png" />
 	  <None Remove="Images\FolderImages\addbook1-removebg-preview.png" />
-	  <None Remove="Images\FolderImages\addbook1.png" />
+	  <None Remove="Images\FolderImages\biasach-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\bieudo-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\category-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\hoadonicon-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\humanpic-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\logobook-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\nhacungcap-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\phieuxuat-removebg-preview.png" />
+	  <None Remove="Images\FolderImages\user-removebg-preview.png" />
 	  <None Remove="Images\mat-biec.jpg" />
 	  <None Remove="Images\toithayhoavangtrencoxanh.jpg" />
 	  <None Remove="Images\tuduymo.jpg" />
@@ -44,9 +52,9 @@
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc5.4" />
 		<PackageReference Include="MaterialDesignColors" Version="5.2.0" />
 		<PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -70,13 +78,37 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Images\FolderImages\addbook.png">
+	  <Resource Include="Images\FolderImages\aa-removebg-preview.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Images\FolderImages\addbook1-removebg-preview.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
-	  <Resource Include="Images\FolderImages\addbook1.png">
+	  <Resource Include="Images\FolderImages\biasach-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\bieudo-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\category-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\hoadonicon-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\humanpic-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\logobook-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\nhacungcap-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\phieuxuat-removebg-preview.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Images\FolderImages\user-removebg-preview.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
 	</ItemGroup>

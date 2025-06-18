@@ -236,13 +236,12 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" CornerRadius="12" Padding="20,15">
             <DockPanel LastChildFill="True">
-                <materialDesign:PackIcon Kind="FileDocumentEdit" 
-                                         Width="32" 
-                                         Height="32" 
-                                         Foreground="White" 
-                                         VerticalAlignment="Center"/>
+                <Image Source="/Images/FolderImages/phieuxuat-removebg-preview.png"
+                       Width="40" 
+                       Height="40" 
+                       VerticalAlignment="Center"/>
                 <TextBlock Text="SỬA THÔNG TIN PHIẾU NHẬP" 
-                           FontSize="22" 
+                           FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="White" 
                            Margin="15,0,0,0" 
@@ -275,6 +274,7 @@
                          Grid.Column="0"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Mã phiếu"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding Import.ImportID}"
                          IsReadOnly="True"
                          Margin="0,0,10,15"/>
@@ -284,6 +284,7 @@
                           Grid.Column="1"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Nhà cung cấp"
+                          materialDesign:HintAssist.Foreground="gray"
                           ItemsSource="{Binding Suppliers}"
                           SelectedValuePath="SupplierID"
                           SelectedValue="{Binding Import.SupplierID}"
@@ -295,6 +296,7 @@
                             Grid.Column="0"
                             Style="{StaticResource ModernDatePicker}"
                             materialDesign:HintAssist.Hint="Ngày nhập"
+                            materialDesign:HintAssist.Foreground="Gray"
                             SelectedDate="{Binding Import.ImportDate}"
                             Margin="0,0,10,15"/>
 
@@ -303,6 +305,7 @@
                           Grid.Column="1"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Trạng thái"
+                          materialDesign:HintAssist.Foreground="Gray"
                           ItemsSource="{Binding StatusOptions}"
                           SelectedValue="{Binding Import.ImportStatus}"
                           Margin="0,0,0,15"/>
@@ -312,6 +315,7 @@
                          Grid.Column="0"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Người tạo"
+                         materialDesign:HintAssist.Foreground="Gray"
                          Text="{Binding Import.CreateBy, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,10,15"/>
 
@@ -320,6 +324,7 @@
                          Grid.Column="1"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Tổng tiền (VNĐ)"
+                         materialDesign:HintAssist.Foreground="Gray"
                          Text="{Binding Import.TotalAmount, StringFormat='{}{0:N0}'}"
                          IsReadOnly="True"
                          Margin="0,0,0,15"/>
@@ -330,6 +335,7 @@
                          Grid.ColumnSpan="2"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Ghi chú"
+                         materialDesign:HintAssist.Foreground="Gray"
                          Text="{Binding Import.Notes, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          AcceptsReturn="True"

@@ -25,5 +25,10 @@ namespace DoanPhamVietDuc.Views.Staffs
 			InitializeComponent();
 			DataContext = staff;
 		}
-	}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+        }
+    }
 }

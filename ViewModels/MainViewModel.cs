@@ -5,6 +5,9 @@ using DoanPhamVietDuc.Models;
 using DoanPhamVietDuc.Services.AuthenticationService;
 using DoanPhamVietDuc.Services.NavigationService;
 using System.Windows.Input;
+using DoanPhamVietDuc.Services.DialogService;
+using DoanPhamVietDuc.Services.AuthenticationService.DataService;
+using DoanPhamVietDuc.Views.Accounts;
 
 namespace DoanPhamVietDuc.ViewModels
 {
@@ -12,6 +15,8 @@ namespace DoanPhamVietDuc.ViewModels
 	{
 		private readonly INavigationService _navigationService;
 		private readonly IAuthenticationService _authService;
+		private readonly IDialogService _dialogService;
+		private readonly IDataService _dataService;
 
 		public BaseViewModel CurrentViewModel => _navigationService.CurrentViewModel;
 
@@ -48,10 +53,12 @@ namespace DoanPhamVietDuc.ViewModels
 		public bool CanManageStaff => HasPermission(Permissions.CanViewStaff);
 		public bool CanManageAccounts => HasPermission(Permissions.CanManageSystem);
 
-		public MainViewModel(INavigationService navigationService, IAuthenticationService authService)
+		public MainViewModel(INavigationService navigationService, IAuthenticationService authService, IDialogService dialogService, IDataService dataService)
 		{
 			_navigationService = navigationService;
 			_authService = authService;
+			_dialogService = dialogService;
+			_dataService = dataService;
 
 			Title = "Quản lý sách";
 
@@ -102,7 +109,7 @@ namespace DoanPhamVietDuc.ViewModels
 
 			// Subscribe to navigation changes
 			_navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
-		}
+		} 
 
 		private bool HasPermission(string permission)
 		{
@@ -124,8 +131,26 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private void ShowProfile()
 		{
-			// Navigate to profile view
-			// _navigationService.NavigateTo<ProfileViewModel>();
+			try
+			{
+				var currentAccount = CurrentUser?.Account;
+
+				if (currentAccount == null)
+				{
+					_dialogService?.ShowInfoAsync("Thông báo", "Không tìm thấy thông tin tài khoản hiện tại.");
+					return;
+				}
+
+				var accountDetailWindow = new AccountDetailWindow(currentAccount, _dialogService, _dataService);
+
+				// Hiển thị cửa sổ
+				accountDetailWindow.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				_dialogService?.ShowInfoAsync("Lỗi", $"Không thể mở thông tin tài khoản: {ex.Message}");
+				System.Diagnostics.Debug.WriteLine($"ShowProfile Error: {ex.Message}");
+			}
 		}
 
 		private void OnUserChanged(CurrentUser user)

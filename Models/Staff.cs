@@ -30,14 +30,14 @@ namespace DoanPhamVietDuc.Models
 		public string Address { get; set; }
 
 		[Required]
-		public DateTime BirthDate { get; set; }
+		public DateTime BirthDate { get; set; } = DateTime.Now;
 
 		[Required]
 		[MaxLength(50)]
-		public string Position { get; set; }  
+		public string Position { get; set; }
 
 		[Required]
-		public DateTime HireDate { get; set; }
+		public DateTime HireDate { get; set; } = DateTime.Now;
 
 		[Required]
 		[MaxLength(20)]

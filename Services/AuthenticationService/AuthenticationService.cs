@@ -23,14 +23,13 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 		{
 			try
 			{
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Username={username}, Password={(string.IsNullOrEmpty(password) ? "empty" : "not empty")}");
 				if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
 				{
 					return AuthResult.Failed("Vui lòng nhập đầy đủ thông tin đăng nhập");
 				}
 
 				var account = await _dataService.GetAccountByUsernameAsync(username);
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Found account - Username={account?.Username}, Password={account?.Password}, InputPassword={password}");
+
 				if (account == null)
 				{
 					return AuthResult.Failed("Tài khoản không tồn tại");
@@ -47,7 +46,6 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 
 				// So sánh trực tiếp mật khẩu plaintext
 				bool passwordMatch = account.Password == password;
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Username={username}, PasswordMatch={passwordMatch}, Password={account.Password}");
 				if (!passwordMatch)
 				{
 					return AuthResult.Failed("Mật khẩu không chính xác");
@@ -73,7 +71,6 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine($"LoginAsync: Exception - {ex.Message}");
 				return AuthResult.Failed($"Lỗi đăng nhập: {ex.Message}");
 			}
 		}
@@ -117,9 +114,6 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 					return AuthResult.Failed("Nhân viên này đã có tài khoản");
 				}
 
-				System.Diagnostics.Debug.WriteLine("RegisterAsync: Validation thành công, tạo account");
-
-				// Tạo account mới với mật khẩu plaintext
 				var newAccount = new Account
 				{
 					Username = request.Username,
@@ -131,9 +125,6 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 					CreatedBy = _currentUser?.DisplayName ?? "System"
 				};
 
-				System.Diagnostics.Debug.WriteLine($"RegisterAsync: Tạo account - Username={newAccount.Username}, StaffID={newAccount.StaffID}, Role={newAccount.Role}");
-
-				// LƯU VÀO DATABASE
 				bool success = await _dataService.AddAccountAsync(newAccount);
 
 				if (!success)
@@ -141,12 +132,10 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 					return AuthResult.Failed("Lỗi khi lưu tài khoản vào database");
 				}
 
-				System.Diagnostics.Debug.WriteLine("RegisterAsync: Lưu account thành công");
 				return AuthResult.Success(newAccount);
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine($"RegisterAsync: Exception - {ex.Message}");
 				return AuthResult.Failed($"Lỗi tạo tài khoản: {ex.Message}");
 			}
 		}
@@ -156,6 +145,43 @@ namespace DoanPhamVietDuc.Services.AuthenticationService
 			_currentUser = null;
 			UserChanged?.Invoke(null);
 			await Task.CompletedTask;
+		}
+
+		public async Task<AuthResult> ResetPasswordAsync(int accountId, string newPassword)
+		{
+			try
+			{
+				if (!_currentUser.IsAdmin) 
+				{
+					return AuthResult.Failed("Bạn không có quyền đặt lại mật khẩu");
+				}
+
+				var account = await _dataService.GetAccountByStaffIdAsync(accountId);
+				if (account == null)
+				{
+					return AuthResult.Failed("Tài khoản không tồn tại");
+				}
+
+				if (account.Status != "Active")
+				{
+					return AuthResult.Failed("Tài khoản đã bị khóa, không thể đặt lại mật khẩu");
+				}
+
+				// Cập nhật mật khẩu mới (plaintext)
+				account.Password = newPassword;
+				account.CreatedBy = _currentUser?.DisplayName ?? "System";
+				bool success = await _dataService.UpdateAccountAsync(account);
+
+				if (!success)
+				{
+					return AuthResult.Failed("Lỗi khi cập nhật mật khẩu");
+				}
+				return AuthResult.Success(account);
+			}
+			catch (Exception ex)
+			{
+				return AuthResult.Failed($"Lỗi đặt lại mật khẩu: {ex.Message}");
+			}
 		}
 
 		public async Task<string[]> GetUserPermissionsAsync(string role)

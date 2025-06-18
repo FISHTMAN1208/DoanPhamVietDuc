@@ -1,5 +1,6 @@
 ﻿using DoanPhamVietDuc.Helpers.Commands;
 using DoanPhamVietDuc.Models;
+using DoanPhamVietDuc.Services.AuthenticationService;
 using DoanPhamVietDuc.Services.AuthenticationService.DataService;
 using DoanPhamVietDuc.Services.DialogService;
 using DoanPhamVietDuc.Views.Accounts;
@@ -15,6 +16,7 @@ namespace DoanPhamVietDuc.ViewModels
 	{
 		private readonly IDataService _dataService;
 		private readonly IDialogService _dialogService;
+		private readonly IAuthenticationService _authService;
 
 		private ObservableCollection<Account> _accounts;
 		public ObservableCollection<Account> Accounts
@@ -50,11 +52,19 @@ namespace DoanPhamVietDuc.ViewModels
 			}
 		}
 
+		private string _newPassword;
+		public string NewPassword
+		{
+			get => _newPassword;
+			set => SetProperty(ref _newPassword, value);
+		}
+
 		public ICommand LoadAccountsCommand { get; }
 		public ICommand AddAccountCommand { get; }
 		public ICommand EditAccountCommand { get; }
 		public ICommand DeleteAccountCommand { get; }
 		public ICommand ViewDetailAccountCommand { get; }
+		public ICommand ResetPasswordCommand { get; }
 		public ICommand RefreshCommand { get; }
 		public ICommand SearchCommand { get; }
 

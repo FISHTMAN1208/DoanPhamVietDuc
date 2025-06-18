@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header và Toolbar -->
-        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0 0 0 15" 
+        <Border Grid.Row="0" Background="#FAD59A" CornerRadius="8" Padding="15" Margin="0 0 0 15" 
                 BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation="Dp2">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -26,18 +26,31 @@
 
                 <!-- Tiêu đề -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="ChartBar" Width="32" Height="32" Margin="0 0 10 0" Foreground="#1E293B"/>
-                    <TextBlock Text="THỐNG KÊ DOANH THU THEO THỂ LOẠI" FontSize="20" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                    <Image Source="/Images/FolderImages/bieudo-removebg-preview.png"
+                            Width="60" 
+                            Height="60" 
+                            Margin="20 0"
+                            VerticalAlignment="Center"/>
+                    <TextBlock Text="THỐNG KÊ DOANH THU THEO THỂ LOẠI"
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="#1E293B" 
+                               VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Toolbar -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" 
                                 Width="200" Margin="0 0 10 0" 
-                                materialDesign:HintAssist.Hint="Ngày bắt đầu"/>
+                                Background="White"
+                                materialDesign:HintAssist.Hint="Ngày bắt đầu"
+                                materialDesign:HintAssist.Foreground="Black"/>
+
                     <DatePicker SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" 
                                 Width="200" Margin="0 0 20 0" 
-                                materialDesign:HintAssist.Hint="Ngày kết thúc"/>
+                                Background="white"
+                                materialDesign:HintAssist.Hint="Ngày kết thúc"
+                                materialDesign:HintAssist.Foreground="Black"/>
                     <Button Content="Lọc dữ liệu" Command="{Binding LoadRevenueCommand}" 
                             Width="130" Height="36" 
                             Style="{StaticResource MaterialDesignRaisedButton}" 
@@ -103,11 +116,12 @@
                 </DataGrid>
             </Border>
 
-            <!-- Biểu đồ -->
+            <!-- Biểu đồ - ĐÃ THÊM YAxes -->
             <Border Grid.Column="1" Background="White" CornerRadius="8" Padding="10" Margin="10 0 0 0"
                     BorderBrush="#E2E8F0" BorderThickness="1" materialDesign:ElevationAssist.Elevation="Dp3">
                 <liveCharts:CartesianChart Series="{Binding ChartSeries}" 
-                                          XAxes="{Binding XAxes}" 
+                                          XAxes="{Binding XAxes}"
+                                          YAxes="{Binding YAxes}"
                                           LegendPosition="Bottom"/>
             </Border>
         </Grid>

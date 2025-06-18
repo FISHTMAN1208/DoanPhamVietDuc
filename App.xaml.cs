@@ -18,7 +18,7 @@ namespace DoanPhamVietDuc
 		private readonly ServiceProvider _serviceProvider;
 		private LoginWindow _currentLoginWindow;
 		private MainWindow _currentMainWindow;
-		private bool _isLoggingOut = false; // Thêm flag để track trạng thái logout
+		private bool _isLoggingOut = false;
 
 		public static T GetService<T>() where T : class
 		{
@@ -36,22 +36,21 @@ namespace DoanPhamVietDuc
 
 		private void ConfigureServices(ServiceCollection services)
 		{
-			// Đăng ký DbContext
 			services.AddDbContext<ApplicationDbContext>(options =>
 			{
-				options.UseSqlServer("Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;Trusted_Connection=True;TrustServerCertificate=True");
+				options.UseSqlServer("Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;User Id=sa;Password=phamvietduc1208;TrustServerCertificate=True");           
 			});
 
 			services.AddSingleton<Func<ApplicationDbContext>>(provider => () =>
 			{
 				var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-					.UseSqlServer("Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;Trusted_Connection=True;TrustServerCertificate=True")
-					.Options;
+.UseSqlServer("Server=LAPTOPCUADUC\\SQLEXPRESS;Database=BookStoreDB;User Id=sa;Password=phamvietduc1208;TrustServerCertificate=True").Options;
 				return new ApplicationDbContext(options);
-			});
+		});
+		
 
-			// Đăng ký các Services
-			services.AddTransient<IDataService, DataService>();
+		// Đăng ký các Services
+		services.AddTransient<IDataService, DataService>();
 			services.AddSingleton<IDialogService, DialogService>();
 			services.AddSingleton<INavigationService, NavigationService>();
 			services.AddSingleton<IAuthenticationService, AuthenticationService>();

@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Sửa hóa đơn" 
-        Height="638" 
+        Height="auto" 
         Width="800"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -199,8 +199,15 @@
         <!-- Header -->
         <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="20,15" Margin="0,0,0,20" CornerRadius="12">
             <DockPanel LastChildFill="True">
-                <materialDesign:PackIcon Kind="FileDocumentEdit" Width="32" Height="32" Foreground="White" VerticalAlignment="Center"/>
-                <TextBlock Text="SỬA THÔNG TIN HÓA ĐƠN" FontSize="22" FontWeight="Bold" Foreground="White" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                <Image Source="/Images/FolderImages/hoadonicon-removebg-preview.png"
+                        Width="70" 
+                        Height="60" 
+                        VerticalAlignment="Center"/>
+                <TextBlock Text="SỬA THÔNG TIN HÓA ĐƠN" 
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White" 
+                           VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
 
@@ -229,69 +236,77 @@
                          Grid.Column="0"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Mã hóa đơn"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding Invoice.InvoiceID}"
                          IsReadOnly="True"
-                         Margin="0,0,10,15"/>
+                         Margin="0,5,10,20"/>
 
                 <!-- Mã hiển thị -->
                 <TextBox Grid.Row="0"
                          Grid.Column="1"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Mã hiển thị"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding Invoice.InvoiceCode}"
-                         Margin="0,0,0,15"/>
+                         Margin="0,5,10,20"/>
 
                 <!-- Khách hàng -->
                 <TextBox Grid.Row="1"
                          Grid.Column="0"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Tên khách hàng"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding Invoice.CustomerName}"
-                         Margin="0,0,10,15"/>
+                         Margin="0,5,10,20"/>
 
                 <!-- Số điện thoại -->
                 <TextBox Grid.Row="1"
                          Grid.Column="1"
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Số điện thoại"
+                         materialDesign:HintAssist.Foreground="gray"
                          Text="{Binding Invoice.CustomerPhone}"
-                         Margin="0,0,0,15"/>
+                         Margin="0,5,10,20"/>
 
                 <!-- Ngày hóa đơn -->
                 <DatePicker Grid.Row="2"
                             Grid.Column="0"
                             Style="{StaticResource ModernDatePicker}"
-                            materialDesign:HintAssist.Hint="Ngày hóa đơn"
+                            materialDesign:HintAssist.Hint="Ngày nhập hóa đơn"
+                            materialDesign:HintAssist.Foreground="gray"
                             SelectedDate="{Binding Invoice.InvoiceDate}"
-                            Margin="0,0,10,15"/>
+                            Margin="0,5,10,20"/>
 
                 <!-- Trạng thái -->
                 <ComboBox Grid.Row="2"
                           Grid.Column="1"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Trạng thái"
+                          materialDesign:HintAssist.Foreground="gray"
                           ItemsSource="{Binding StatusOptions}"
                           SelectedValue="{Binding Invoice.Status}"
-                          Margin="0,0,0,15"/>
+                          Margin="0,5,10,20"/>
 
                 <!-- Nhân viên tạo -->
                 <ComboBox Grid.Row="3"
                           Grid.Column="0"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Nhân viên"
+                          materialDesign:HintAssist.Foreground="Gray"
                           ItemsSource="{Binding StaffList}"
                           DisplayMemberPath="FullName"
                           SelectedItem="{Binding SelectedStaff}"
-                          Margin="0,0,10,15"/>
+                          Margin="0,5,10,20"/>
 
                 <!-- Phương thức thanh toán -->
                 <ComboBox Grid.Row="3"
                           Grid.Column="1"
                           Style="{StaticResource ModernComboBox}"
                           materialDesign:HintAssist.Hint="Phương thức thanh toán"
+                          materialDesign:HintAssist.Foreground="gray"
                           ItemsSource="{Binding PaymentMethods}"
                           SelectedItem="{Binding Invoice.PaymentMethod}"
-                          Margin="0,0,0,15"/>
+                          Margin="0,5,10,20"/>
 
                 <!-- Tổng tiền -->
                 <TextBox Grid.Row="4"
@@ -299,8 +314,9 @@
                          Style="{StaticResource ModernTextBox}"
                          materialDesign:HintAssist.Hint="Tổng tiền (VNĐ)"
                          Text="{Binding Invoice.TotalAmount, StringFormat='{}{0:N0}'}"
+                         materialDesign:HintAssist.Foreground="gray"
                          IsReadOnly="True"
-                         Margin="0,0,0,15"/>
+                         Margin="0,5,10,20"/>
             </Grid>
         </GroupBox>
 

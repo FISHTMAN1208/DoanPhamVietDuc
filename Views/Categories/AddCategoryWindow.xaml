@@ -45,8 +45,8 @@
 
         <!-- DatePicker Style -->
         <Style x:Key="ModernDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignOutlinedDatePicker}">
-            <Setter Property="BorderBrush" Value="#E2E8F0"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="FontSize" Value="14"/>
@@ -177,12 +177,12 @@
                 Padding="16,12" 
                 Margin="0,0,0,24">
             <DockPanel LastChildFill="True">
-                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                <Image Source="/Images/FolderImages/category-removebg-preview.png"
                        Width="40" 
                        Height="40" 
                        VerticalAlignment="Center"/>
                 <TextBlock Text="THÊM THỂ LOẠI MỚI" 
-                           FontSize="18" 
+                           FontSize="20" 
                            FontWeight="SemiBold" 
                            Foreground="White" 
                            VerticalAlignment="Center"

@@ -199,12 +199,12 @@
                 Padding="16,12" 
                 Margin="0,0,0,24">
             <DockPanel LastChildFill="True">
-                <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
+                <Image Source="/Images/FolderImages/humanpic-removebg-preview.png"
                         Width="50" 
                         Height="50" 
                         VerticalAlignment="Center"/>
                 <TextBlock Text="CẬP NHẬT NHÂN VIÊN" 
-                           FontSize="18" 
+                           FontSize="24" 
                            FontWeight="SemiBold" 
                            Foreground="White" 
                            VerticalAlignment="Center"

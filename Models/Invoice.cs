@@ -19,7 +19,7 @@ namespace DoanPhamVietDuc.Models
 		[MaxLength(20)]
 		public string InvoiceCode { get; set; }
 
-		public DateTime? InvoiceDate { get; set; }
+		public DateTime? InvoiceDate { get; set; } = DateTime.Now;	
 
 		[MaxLength(100)]
 		public string? CustomerName { get; set; }
@@ -38,7 +38,7 @@ namespace DoanPhamVietDuc.Models
 		[MaxLength(20)]
 		public string Status { get; set; }
 
-		[MaxLength(500)]  
+		[MaxLength(500)]
 		public string Notes { get; set; }
 
 		[Required]

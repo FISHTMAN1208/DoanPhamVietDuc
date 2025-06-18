@@ -8,10 +8,12 @@ public class RegisterRequest
 	public string Username { get; set; }
 
 	[Required(ErrorMessage = "Mật khẩu là bắt buộc")]
+	[PasswordValidation]
 	public string Password { get; set; } 
 
 	[Required(ErrorMessage = "Xác nhận mật khẩu là bắt buộc")]
 	[Compare("Password", ErrorMessage = "Mật khẩu xác nhận không khớp")]
+	[PasswordValidation]
 	public string ConfirmPassword { get; set; }
 
 	[Required(ErrorMessage = "Chọn nhân viên là bắt buộc")]

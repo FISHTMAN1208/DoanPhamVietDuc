@@ -14,21 +14,27 @@ namespace DoanPhamVietDuc.Models
 		public int SupplierID { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string SupplierName { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string SupplierPhone { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string SupplierEmail { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string SupplierAddress { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string TaxCode { get; set; }
 
 		[Required]
+		[MaxLength(50)]
 		public string Status { get; set; }
 
 		public virtual ICollection<Book> Books { get; set; }

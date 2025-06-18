@@ -85,21 +85,19 @@ namespace DoanPhamVietDuc.ViewModels
 
 			_ = LoadStaffsAsync();
 
-			System.Diagnostics.Debug.WriteLine("RegisterViewModel: Khởi tạo thành công");
 		}
 
 		private bool CanRegister()
 		{
 			return !IsLoading &&
-				   !string.IsNullOrWhiteSpace(Username) &&
-				   !string.IsNullOrWhiteSpace(Password) &&
-				   !string.IsNullOrWhiteSpace(ConfirmPassword) &&
-				   SelectedStaff != null;
+		  (	   !string.IsNullOrEmpty(Username) ||
+			   !string.IsNullOrEmpty(Password) ||
+			   !string.IsNullOrEmpty(ConfirmPassword) ||
+			   SelectedStaff != null);
 		}
 
 		private async Task RegisterAsync()
 		{
-			System.Diagnostics.Debug.WriteLine("RegisterAsync: Bắt đầu đăng ký");
 			IsLoading = true;
 
 			try
@@ -107,7 +105,7 @@ namespace DoanPhamVietDuc.ViewModels
 				var request = new RegisterRequest
 				{
 					Username = Username,
-					Password = Password, // Sử dụng plaintext
+					Password = Password, 
 					ConfirmPassword = ConfirmPassword,
 					StaffId = SelectedStaff.StaffID,
 					Role = SelectedRole
@@ -122,7 +120,6 @@ namespace DoanPhamVietDuc.ViewModels
 					var errorMessages = validationResults.Select(r => r.ErrorMessage).ToList();
 					var errorMessage = string.Join("\n", errorMessages);
 					await _dialogService.ShowInfoAsync("Lỗi", errorMessage);
-					System.Diagnostics.Debug.WriteLine($"RegisterAsync: Validation failed - {errorMessage}");
 					return;
 				}
 
@@ -131,18 +128,15 @@ namespace DoanPhamVietDuc.ViewModels
 				if (result.IsSuccess)
 				{
 					await _dialogService.ShowInfoAsync("Thành công", "Tạo tài khoản thành công!");
-					System.Diagnostics.Debug.WriteLine("RegisterAsync: Đăng ký thành công, quay về login");
 					BackToLogin();
 				}
 				else
 				{
 					await _dialogService.ShowInfoAsync("Lỗi", result.ErrorMessage);
-					System.Diagnostics.Debug.WriteLine($"RegisterAsync: Lỗi - {result.ErrorMessage}");
 				}
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine($"RegisterAsync: Exception - {ex.Message}");
 				await _dialogService.ShowInfoAsync("Lỗi", $"Có lỗi xảy ra: {ex.Message}");
 			}
 			finally
@@ -153,7 +147,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private void BackToLogin()
 		{
-			System.Diagnostics.Debug.WriteLine("BackToLogin: Gọi BackToLoginRequested event");
 			BackToLoginRequested?.Invoke();
 		}
 
@@ -161,7 +154,6 @@ namespace DoanPhamVietDuc.ViewModels
 		{
 			try
 			{
-				System.Diagnostics.Debug.WriteLine("LoadStaffsAsync: Bắt đầu load danh sách nhân viên");
 
 				var staffs = await _dataService.GetAllStaffsAsync();
 
@@ -169,14 +161,11 @@ namespace DoanPhamVietDuc.ViewModels
 				foreach (var staff in staffs)
 				{
 					AvailableStaffs.Add(staff);
-					System.Diagnostics.Debug.WriteLine($"LoadStaffsAsync: Thêm staff - {staff.FullName}");
 				}
 
-				System.Diagnostics.Debug.WriteLine($"LoadStaffsAsync: Đã load {AvailableStaffs.Count} nhân viên");
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine($"LoadStaffsAsync: Lỗi - {ex.Message}");
 				await _dialogService.ShowInfoAsync("Lỗi", $"Lỗi khi tải danh sách nhân viên: {ex.Message}");
 			}
 		}

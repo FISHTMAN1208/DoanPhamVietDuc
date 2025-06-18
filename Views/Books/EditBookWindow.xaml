@@ -147,14 +147,14 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="30,25">
+        <Border Grid.Row="0" Background="{StaticResource PrimaryGradient}" Padding="30,25" Margin="20" CornerRadius="12">
             <DockPanel LastChildFill="True">
                 <Image Source="/Images/FolderImages/addbook1-removebg-preview.png"
                        Width="50" 
                        Height="50" 
                        VerticalAlignment="Center"/>
                 <TextBlock Text="SỬA THÔNG TIN SÁCH" 
-                           FontSize="26" 
+                           FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="White" 
                            Margin="20,0,0,0" 

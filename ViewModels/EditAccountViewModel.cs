@@ -198,7 +198,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 		private async Task SaveAccountAsync()
 		{
-			// Reset error messages
 			UsernameError = string.Empty;
 			PasswordError = string.Empty;
 			ConfirmPasswordError = string.Empty;
@@ -212,7 +211,6 @@ namespace DoanPhamVietDuc.ViewModels
 
 			bool hasError = false;
 
-			// Validation
 			if (string.IsNullOrWhiteSpace(Account.Username))
 			{
 				UsernameError = "Vui lòng nhập tên đăng nhập";
@@ -264,8 +262,6 @@ namespace DoanPhamVietDuc.ViewModels
 			{
 				return;
 			}
-
-			// Check if username exists (excluding current account)
 			bool usernameExists = await _dataService.IsUsernameExistsAsync(Account.Username, Account.AccountID);
 			if (usernameExists)
 			{
